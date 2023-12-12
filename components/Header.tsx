@@ -14,7 +14,7 @@ export default function Header() {
 			<video
 				ref={ref}
 				src='/heropage.mp4'
-				className='absolute inset-0 w-full z-0'
+				className='absolute inset-0 w-full z-0 min-w-fit'
 				autoPlay={true}
 				loop={true}
 			/>
