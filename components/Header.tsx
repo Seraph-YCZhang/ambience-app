@@ -10,13 +10,14 @@ export default function Header() {
 		}
 	}, []);
 	return (
-		<div className='h-[900px] relative w-full bg-[#000]  bg-opacity-40'>
+		<div className='h-[900px] relative w-full bg-[#000]  bg-opacity-40 overflow-hidden'>
 			<video
 				ref={ref}
 				src='/heropage.mp4'
 				className='absolute inset-0 w-full z-0 min-w-fit'
 				autoPlay={true}
 				loop={true}
+				muted
 			/>
 			<div className='flex flex-col items-center justify-center h-full z-[1] relative'>
 				<div className='flex text-[16px] absolute top-[18px] right-[18px] gap-[20px]   text-[#fff]'>
