@@ -10,17 +10,17 @@ export default function Header() {
 		}
 	}, []);
 	return (
-		<div className='h-[900px] relative w-full bg-[#000]  bg-opacity-40 overflow-hidden'>
+		<div className='h-[800px] relative w-full bg-[#000]  bg-opacity-40 '>
 			<video
 				ref={ref}
 				src='/heropage.mp4'
-				className='absolute inset-0 w-full z-0 min-w-fit'
+				className='absolute left-0 right-0 bottom-0 w-full z-0 min-w-fit'
 				autoPlay={true}
 				loop={true}
 				muted
 			/>
 			<div className='flex flex-col items-center justify-center h-full z-[1] relative'>
-				<div className='flex text-[16px] absolute top-[18px] right-[18px] gap-[20px]   text-[#fff]'>
+				<div className='flex text-[16px] absolute top-[18px] right-[50px] gap-[20px]   text-[#fff]'>
 					<div className='flex gap-3 items-center rounded-[67.5px] bg-[#000] opacity-60 w-[133px] h-[52px] justify-center cursor-pointer'>
 						Sign up
 						<svg
@@ -43,7 +43,7 @@ export default function Header() {
 					</div>
 				</div>
 				<Image
-					className='mt-[220px]'
+					className='mt-[150px]'
 					src='/logo.svg'
 					alt='Cozyverse Logo'
 					width={430}
@@ -62,7 +62,7 @@ export default function Header() {
 					away from your own soothing universe
 				</div>
 				<div
-					className='mt-[90px] w-[690px] h-[72px] bg-[#484BC9] rounded-[67.5px] cursor-pointer flex items-center justify-center'
+					className='mt-[90px] w-[560px] h-[72px] bg-[#484BC9] rounded-[67.5px] cursor-pointer flex items-center justify-center'
 					onClick={() => {
 						document
 							.getElementById('form')
@@ -73,9 +73,9 @@ export default function Header() {
 						START TEST
 					</div>
 				</div>
-				<div className='flex items-stretch mb-[40px] mt-auto px-[52px]'>
+				<div className='flex items-stretch mb-[60px] mt-auto px-[52px]'>
 					<div className='bg-[#C6C4D5] rounded-[18px] py-[20px] px-[50px] basis-[391px] flex-1'>
-						<div className='text-[#252525] text-[28px] font-semibold mb-[10px]'>
+						<div className='text-[#252525] text-[24px] font-semibold mb-[10px]'>
 							Take the test
 						</div>
 						<div className='font-light leading-6'>
@@ -98,7 +98,7 @@ export default function Header() {
 						</svg>
 					</div>
 					<div className='bg-[#D0CABB] rounded-[18px] py-[20px] px-[50px]  basis-[542px]  flex-1'>
-						<div className='text-[#252525] text-[28px] font-semibold  mb-[10px]'>
+						<div className='text-[#252525] text-[24px] font-semibold  mb-[10px]'>
 							Find out your best fit
 						</div>
 						<div className=' font-light  leading-6'>
@@ -122,7 +122,7 @@ export default function Header() {
 						</svg>
 					</div>
 					<div className='bg-[#BCD1BE] rounded-[18px]  py-[20px] px-[50px]  basis-[587px]  flex-1'>
-						<div className='text-[#252525] text-[28px] font-semibold  mb-[10px]'>
+						<div className='text-[#252525] text-[24px] font-semibold  mb-[10px]'>
 							Get relaxed, focused, or productive
 						</div>
 						<div className=' font-light  leading-6'>

@@ -1,16 +1,19 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import classnames from 'classnames';
 import Image from 'next/image';
 
 export default function Checkbox({
-	value,
+	value = false,
 	onChange,
+	type = 'checkbox',
 }: {
-	value: boolean;
+	value?: boolean;
 	onChange?: (v: boolean) => void;
+	type?: 'checkbox' | 'toggle';
 }) {
 	const [isChecked, setIsChecked] = useState(value);
+	const ref = useRef<HTMLInputElement>(null);
 
 	const handleOnChange = () => {
 		const _v = !isChecked;
@@ -20,6 +23,39 @@ export default function Checkbox({
 	useEffect(() => {
 		setIsChecked(value);
 	}, [value]);
+
+	if (type === 'toggle') {
+		return (
+			<div
+				className={classnames(
+					'relative w-[110px] h-[62px] rounded-[70px] border-2 border-[#D1D1D1] cursor-pointer',
+					{
+						'bg-[#fff]': !isChecked,
+						'border-[#D1D1D1]': !isChecked,
+						'border-[#484BC9]': isChecked,
+					}
+				)}
+				onClick={() => ref.current?.click()}
+			>
+				<input
+					ref={ref}
+					className='peer shrink-0
+			appearance-none w-full h-full rounded-sm bg-white cursor-pointer z-[1]'
+					type='checkbox'
+					checked={isChecked}
+					onChange={handleOnChange}
+				/>
+				<div
+					className='rounded-[70px] w-[60px] h-[60px] top-0 absolute'
+					style={{
+						backgroundColor: isChecked ? '#484BC9' : '#D1D1D1',
+						left: isChecked ? '48px' : '0px',
+						transition: 'all 0.5s ease',
+					}}
+				></div>
+			</div>
+		);
+	}
 
 	return (
 		<div
