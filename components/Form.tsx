@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Checkbox from './Checkbox';
 import ColorPicker from './ColorPicker';
 import classNames from 'classnames';
@@ -551,13 +551,14 @@ export default function Form() {
 		document.addEventListener('fullscreenchange', onFullScreenChange);
 	}, []);
 
-	const [timerExpanded, setTimeExpanded] = useState(true);
+	const [timerExpanded, setTimeExpanded] = useState(false);
 	const sensors = useSensors(
 		useSensor(PointerSensor),
 		useSensor(KeyboardSensor, {
 			coordinateGetter: sortableKeyboardCoordinates,
 		})
 	);
+	const firstModal = useRef(true);
 
 	const [colors, setColors] = useState<string[]>([]);
 
@@ -625,8 +626,7 @@ export default function Form() {
 					<div
 						className={`text-[#252525] text-[28px] font-bold font-['Inter'] leading-10 shrink-0`}
 					>
-						Question {questionNum + 1}/
-						{questionForm[curSection].questions.length}
+						Question {questionNum + 1}/{questionForm[curSection].questions.length}
 					</div>
 					<div
 						dangerouslySetInnerHTML={{ __html: question.question }}
@@ -996,6 +996,20 @@ export default function Form() {
 		if (!showModal) [setModalStep(1)];
 	}, [showModal]);
 
+	useEffect(() => {
+		if (
+			showModal &&
+			!timerExpanded &&
+			firstModal.current &&
+			modalStep === 2
+		) {
+			setTimeout(() => {
+				setTimeExpanded(true);
+				firstModal.current = false;
+			}, 1000);
+		}
+	}, [showModal, timerExpanded, modalStep]);
+
 	// console.log(
 	// 	'debug per',
 	// 	questionNum / (questionForm[curSection].questions.length - 1),
@@ -1021,6 +1035,8 @@ export default function Form() {
 				style={{
 					overlay: {
 						background: 'rgba(0, 0, 0, 0.56)',
+						position: 'fixed',
+						zIndex:2
 					},
 					content: {
 						width: '1082px',
@@ -1041,30 +1057,30 @@ export default function Form() {
 				{modalStep === 1 && (
 					<div className='w-full h-full flex flex-col justify-center items-center gap-10'>
 						<div
-								className='absolute top-[30px] right-[30px] cursor-pointer'
-								onClick={() => setShowModal(false)}
+							className='absolute top-[30px] right-[30px] cursor-pointer'
+							onClick={() => setShowModal(false)}
+						>
+							<svg
+								width='20'
+								height='20'
+								viewBox='0 0 20 20'
+								fill='none'
+								xmlns='http://www.w3.org/2000/svg'
 							>
-								<svg
-									width='20'
-									height='20'
-									viewBox='0 0 20 20'
-									fill='none'
-									xmlns='http://www.w3.org/2000/svg'
-								>
-									<path
-										d='M19 1L10.7071 9.29289C10.3166 9.68342 10.3166 10.3166 10.7071 10.7071L19 19'
-										stroke='#252525'
-										stroke-width='2'
-										stroke-linecap='round'
-									/>
-									<path
-										d='M1 19L9.29289 10.7071C9.68342 10.3166 9.68342 9.68342 9.29289 9.29289L1 1'
-										stroke='#252525'
-										stroke-width='2'
-										stroke-linecap='round'
-									/>
-								</svg>
-							</div>
+								<path
+									d='M19 1L10.7071 9.29289C10.3166 9.68342 10.3166 10.3166 10.7071 10.7071L19 19'
+									stroke='#252525'
+									stroke-width='2'
+									stroke-linecap='round'
+								/>
+								<path
+									d='M1 19L9.29289 10.7071C9.68342 10.3166 9.68342 9.68342 9.29289 9.29289L1 1'
+									stroke='#252525'
+									stroke-width='2'
+									stroke-linecap='round'
+								/>
+							</svg>
+						</div>
 						<div className='text-[20px] text-[#252525] max-w-[793px] font-semibold'>
 							Before we finalize your ambient video unit, do you
 							want to add some Christmas atmosphere to your
@@ -1230,7 +1246,7 @@ export default function Form() {
 							</div>
 							{!isFullScreen && (
 								<div
-									className='absolute left-6 bottom-6 pt-3 pb-6 rounded-[7px] min-w-[277px]'
+									className='absolute left-6 bottom-6 pt-3 pb-6 rounded-[7px] min-w-[277px] transition-all duration-300'
 									style={{
 										background: 'rgba(252, 252, 252, 0.85)',
 										border: '1px solid rgba(0, 0, 0, 0.06)',
@@ -1493,7 +1509,7 @@ export default function Form() {
 						questionForm[curSection].questions[questionNum]
 					)}
 				</DndContext>
-				<div className='flex mt-auto'>
+				<div className='flex items-center mt-auto'>
 					{(questionNum > 0 || curSection > 1) && (
 						<div
 							className='text-[#444] text-[28px] font-medium flex items-center cursor-pointer select-none ml-[72px]'
@@ -1532,8 +1548,33 @@ export default function Form() {
 						</div>
 					)}
 					<div
+						className='ml-auto text-[#444] text-[28px] font-medium cursor-pointer w-[112px] justify-center items-center'
+						onClick={() => {
+							if (
+								curSection === 2 &&
+								questionNum ===
+									questionForm[curSection].questions.length -
+										1
+							) {
+								setShowModal(true);
+								return;
+							}
+							if (
+								questionNum ===
+								questionForm[curSection].questions.length - 1
+							) {
+								setCurSection((curSection + 1) as ISection);
+								setQuestionNum(0);
+							} else {
+								setQuestionNum((num) => num + 1);
+							}
+						}}
+					>
+						Skip
+					</div>
+					<div
 						className={classNames(
-							'ml-auto  mr-[52px] w-[516px] h-[72px] bg-[#484BC9] rounded-[67.5px] cursor-pointer flex items-center justify-center',
+							'ml-10  mr-[52px] w-[516px] h-[72px] bg-[#484BC9] rounded-[67.5px] cursor-pointer flex items-center justify-center',
 							{
 								'bg-[#C8C8C8] cursor-not-allowed':
 									curSection === 1 && questionNum === 0

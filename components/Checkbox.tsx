@@ -28,7 +28,7 @@ export default function Checkbox({
 		return (
 			<div
 				className={classnames(
-					'relative w-[110px] h-[62px] rounded-[70px] border-2 border-[#D1D1D1] cursor-pointer',
+					'relative w-[68px] h-[34px] rounded-[70px] border-2 border-[#D1D1D1] cursor-pointer',
 					{
 						'bg-[#fff]': !isChecked,
 						'border-[#D1D1D1]': !isChecked,
@@ -46,10 +46,10 @@ export default function Checkbox({
 					onChange={handleOnChange}
 				/>
 				<div
-					className='rounded-[70px] w-[60px] h-[60px] top-0 absolute'
+					className='rounded-[32px] w-[32px] h-[32px] top-0 absolute'
 					style={{
 						backgroundColor: isChecked ? '#484BC9' : '#D1D1D1',
-						left: isChecked ? '48px' : '0px',
+						left: isChecked ? '32px' : '0px',
 						transition: 'all 0.5s ease',
 					}}
 				></div>
