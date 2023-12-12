@@ -194,6 +194,10 @@ const genInitForm = (): QuestionForm => {
 							text: 'The God Father',
 							value: 'the_god_father',
 						},
+						{
+							text: `Other`,
+							value: 'Other',
+						},
 					],
 				},
 			],
@@ -626,7 +630,8 @@ export default function Form() {
 					<div
 						className={`text-[#252525] text-[28px] font-bold font-['Inter'] leading-10 shrink-0`}
 					>
-						Question {questionNum + 1}/{questionForm[curSection].questions.length}
+						Question {questionNum + 1}/
+						{questionForm[curSection].questions.length}
 					</div>
 					<div
 						dangerouslySetInnerHTML={{ __html: question.question }}
@@ -1031,12 +1036,22 @@ export default function Form() {
 	return (
 		<div className='w-full' id='form'>
 			<Modal
+				onAfterOpen={() => {
+					document.body.style.top = `-${window.scrollY}px`;
+					document.body.style.position = 'fixed';
+				}}
+				onAfterClose={() => {
+					const scrollY = document.body.style.top;
+					document.body.style.position = '';
+					document.body.style.top = '';
+					window.scrollTo(0, parseInt(scrollY || '0') * -1);
+				}}
 				isOpen={showModal}
 				style={{
 					overlay: {
 						background: 'rgba(0, 0, 0, 0.56)',
 						position: 'fixed',
-						zIndex:2
+						zIndex: 2,
 					},
 					content: {
 						width: '1082px',
