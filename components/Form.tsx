@@ -1,11 +1,27 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Checkbox from './Checkbox';
 import ColorPicker from './ColorPicker';
 import classNames from 'classnames';
 import Modal from 'react-modal';
 import Image from 'next/image';
 import { useTimer } from 'react-timer-hook';
+import { SortableItem } from './SortableItem';
+import {
+	DndContext,
+	DragEndEvent,
+	KeyboardSensor,
+	PointerSensor,
+	closestCenter,
+	useSensor,
+	useSensors,
+} from '@dnd-kit/core';
+import {
+	SortableContext,
+	arrayMove,
+	sortableKeyboardCoordinates,
+	verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
 type SectionProps = {
 	curSection: number;
 	totalSection: number;
@@ -41,6 +57,7 @@ type Question = {
 	options: Option[];
 	key: string;
 	isTwoLine?: boolean;
+	sortable?: boolean;
 };
 
 type QuestionForm = Record<number, { title: string; questions: Question[] }>;
@@ -236,6 +253,7 @@ const genInitForm = (): QuestionForm => {
 				most preferred and 5 being the least preferred:`,
 					values: [],
 					key: 'prefer_scenes',
+					sortable: true,
 					options: [
 						{
 							text: 'Potted plants scattered around the room for a touch of nature',
@@ -471,8 +489,65 @@ export default function Form() {
 	const [questionNum, setQuestionNum] = useState(0);
 	const [questionForm, setQuestionForm] = useState(() => genInitForm());
 	const [showModal, setShowModal] = useState(false);
+	const [isFullScreen, setIsFullScreen] = useState(false);
+
+	useEffect(() => {
+		const onFullScreenChange = () => {
+			if (document.fullscreenElement) {
+				setIsFullScreen(true);
+			} else {
+				setIsFullScreen(false);
+			}
+		};
+		document.addEventListener('fullscreenchange', onFullScreenChange);
+	}, []);
 
 	const [timerExpanded, setTimeExpanded] = useState(true);
+	const sensors = useSensors(
+		useSensor(PointerSensor),
+		useSensor(KeyboardSensor, {
+			coordinateGetter: sortableKeyboardCoordinates,
+		})
+	);
+
+	const handleDragEnd = (event: DragEndEvent) => {
+		const { active, over } = event;
+
+		if (active.id !== over?.id) {
+			setQuestionForm((prev) => {
+				const items = prev[2].questions.find(
+					(q) => q.sortable
+				)?.options;
+				if (!items || !over) {
+					return prev;
+				}
+				const oldIndex = items.findIndex(
+					(item) => item.value === active.id
+				);
+				const newIndex = items.findIndex(
+					(item) => item.value === over.id
+				);
+				const newOptions = arrayMove(items, oldIndex, newIndex);
+				return {
+					...prev,
+					2: {
+						...prev[2],
+						questions: prev[2].questions.map((q) => {
+							if (q.sortable) {
+								return {
+									...q,
+									options: newOptions,
+									values: newOptions.map((op) => op.value),
+								};
+							} else {
+								return { ...q };
+							}
+						}),
+					},
+				};
+			});
+		}
+	};
 
 	const renderQuestion = (question: Question) => {
 		let _options = [[...question.options]];
@@ -484,7 +559,7 @@ export default function Form() {
 			_options = [[...arrayA], [...arrayB]];
 		}
 		return (
-			<div className='w-full flex justify-center flex-col items-center  px-[260px]'>
+			<div className='w-full flex justify-center flex-col items-center  px-[240px]'>
 				<div className='flex font-normal gap-[20px]  text-[28px] leading-10'>
 					<div
 						className={`text-[#252525] text-[28px] font-bold font-['Inter'] leading-10 mb-[50px] shrink-0`}
@@ -500,13 +575,167 @@ export default function Form() {
 					<div className='w-full flex justify-around'>
 						{_options &&
 							_options.map((ops, index) => {
-								console.log(
-									'debug',
-									questionForm[curSection].questions[
-										questionNum
-									].values as string[],
-									ops
-								);
+								if (question.sortable) {
+									return (
+										<SortableContext
+											items={ops.map((op) => op.value)}
+											strategy={
+												verticalListSortingStrategy
+											}
+											key={index}
+										>
+											<div className='flex flex-col gap-[10px]'>
+												{ops.map((op, idx) => {
+													const onChange = (
+														v: boolean
+													) => {
+														setQuestionForm(
+															(prev) => {
+																return {
+																	...prev,
+																	[curSection]:
+																		{
+																			...prev[
+																				curSection
+																			],
+
+																			questions:
+																				prev[
+																					curSection
+																				].questions.map(
+																					(
+																						q
+																					) => {
+																						if (
+																							q.key !==
+																							question.key
+																						) {
+																							return q;
+																						} else {
+																							if (
+																								curSection ===
+																									1 &&
+																								questionNum ===
+																									0
+																							) {
+																								if (
+																									v
+																								) {
+																									return {
+																										...q,
+																										values: [
+																											op.value,
+																										],
+																										extra: {
+																											selectedOption:
+																												v,
+																										},
+																									};
+																								} else {
+																									return {
+																										...q,
+																										values: [],
+																										extra: {
+																											selectedOption:
+																												undefined,
+																										},
+																									};
+																								}
+																							}
+																							return {
+																								...q,
+																								values: [
+																									op.value,
+																								],
+																							};
+																						}
+																					}
+																				),
+																		},
+																};
+															}
+														);
+													};
+													return (
+														<SortableItem
+															id={op.value}
+															key={op.value}
+														>
+															<div
+																key={op.value}
+																className='text-[#777] text-[28px] font-normal leading-10  rounded-[18px] cursor-pointer w-full'
+															>
+																<div className='flex items-center gap-[20px] w-full'>
+																	<div className='bg-[#FFF] w-[84px] h-[84px] rounded-[18px] flex items-center justify-center'>
+																		{idx +
+																			1}
+																	</div>
+																	<div className='ml-[28px] flex bg-[#FFF] py-[22px] px-[44px] rounded-[18px] items-center flex-1'>
+																		<div>
+																			{
+																				op.text
+																			}
+																		</div>
+																		<div className='ml-auto'>
+																			<svg
+																				width='24'
+																				height='24'
+																				viewBox='0 0 24 24'
+																				fill='none'
+																				xmlns='http://www.w3.org/2000/svg'
+																			>
+																				<path
+																					d='M2 22H22'
+																					stroke='#444444'
+																					stroke-width='4'
+																					stroke-linecap='round'
+																				/>
+																				<path
+																					d='M2 12H22'
+																					stroke='#444444'
+																					stroke-width='4'
+																					stroke-linecap='round'
+																				/>
+																				<path
+																					d='M2 2H22'
+																					stroke='#444444'
+																					stroke-width='4'
+																					stroke-linecap='round'
+																				/>
+																			</svg>
+																		</div>
+																	</div>
+																</div>
+																{op.value ===
+																	'Other' &&
+																	questionNum !==
+																		0 &&
+																	curSection !==
+																		1 &&
+																	(
+																		questionForm[
+																			curSection
+																		]
+																			.questions[
+																			questionNum
+																		]
+																			.values as string[]
+																	).includes(
+																		op.value
+																	) && (
+																		<input
+																			placeholder='Type in...'
+																			className='mt-[30px] w-[355px] px-[20px] h-[60px] rounded-[10px] border-2 border-[#D1D1D1] outline-none'
+																		/>
+																	)}
+															</div>
+														</SortableItem>
+													);
+												})}
+											</div>
+										</SortableContext>
+									);
+								}
 								return (
 									<div className='flex flex-col' key={index}>
 										{ops.map((op) => {
@@ -705,7 +934,8 @@ export default function Form() {
 						transform: 'translate(-50%, -50%)',
 						padding: '0',
 						borderRadius: '16px',
-						boxShadow:'0px 2px 21px 0px rgba(0, 0, 0, 0.15), 0px 32px 64px 0px rgba(0, 0, 0, 0.19)'
+						boxShadow:
+							'0px 2px 21px 0px rgba(0, 0, 0, 0.15), 0px 32px 64px 0px rgba(0, 0, 0, 0.19)',
 					},
 				}}
 			>
@@ -780,7 +1010,7 @@ export default function Form() {
 									const elem = document.getElementById(
 										'generated-image-ctn'
 									);
-									if(!elem) {
+									if (!elem) {
 										return;
 									}
 
@@ -840,219 +1070,233 @@ export default function Form() {
 								</svg>
 							</div>
 						</div>
-						<div
-							className='absolute left-6 bottom-6 pt-3 pb-6 rounded-[7px] min-w-[277px]'
-							style={{
-								background: 'rgba(252, 252, 252, 0.85)',
-								border: '1px solid rgba(0, 0, 0, 0.06)',
-							}}
-						>
+						{!isFullScreen && (
 							<div
-								className={classNames(
-									' px-[22px] pb-2 text-[#252525] relative',
-									{
-										'flex items-center': !timerExpanded,
-									}
-								)}
+								className='absolute left-6 bottom-6 pt-3 pb-6 rounded-[7px] min-w-[277px]'
 								style={{
-									borderBottom: timerExpanded
-										? '1px solid rgba(153, 153, 153, 0.50)'
-										: undefined,
-
-									paddingBottom: timerExpanded
-										? undefined
-										: '0px',
+									background: 'rgba(252, 252, 252, 0.85)',
+									border: '1px solid rgba(0, 0, 0, 0.06)',
 								}}
 							>
-								<div className='text-[20px] font-semibold'>
-									Timer setup
-								</div>
-								{timerExpanded && (
-									<div className=' text-[16px] font-normal max-w-[440px]'>
-										Before we process your final video,
-										please tell us how long you want the
-										video duration to be
-									</div>
-								)}
 								<div
 									className={classNames(
-										'absolute top-1 right-4 cursor-pointer',
+										' px-[22px] pb-2 text-[#252525] relative',
 										{
-											'relative top-0 right-0 ml-auto':
-												!timerExpanded,
+											'flex items-center': !timerExpanded,
 										}
 									)}
-									onClick={() => {
-										setTimeExpanded((prev) => !prev);
+									style={{
+										borderBottom: timerExpanded
+											? '1px solid rgba(153, 153, 153, 0.50)'
+											: undefined,
+
+										paddingBottom: timerExpanded
+											? undefined
+											: '0px',
 									}}
 								>
-									{timerExpanded ? (
-										<svg
-											xmlns='http://www.w3.org/2000/svg'
-											width='38'
-											height='37'
-											viewBox='0 0 38 37'
-											fill='none'
-										>
-											<path
-												d='M21.1349 2.15079V15.0758C21.1349 15.6281 21.5826 16.0758 22.1349 16.0758H35.0599'
-												stroke='#444444'
-												stroke-width='4'
-												stroke-linecap='round'
-											/>
-											<path
-												d='M15.925 35.0016V22.0766C15.925 21.5243 15.4773 21.0766 14.925 21.0766H1.99999'
-												stroke='#444444'
-												stroke-width='4'
-												stroke-linecap='round'
-											/>
-										</svg>
-									) : (
-										<svg
-											width='34'
-											height='33'
-											viewBox='0 0 34 33'
-											fill='none'
-											xmlns='http://www.w3.org/2000/svg'
-										>
-											<path
-												d='M26.8868 21.0367V8.11172C26.8868 7.55944 26.4391 7.11172 25.8868 7.11172H12.9618'
-												stroke='#444444'
-												stroke-width='4'
-												stroke-linecap='round'
-											/>
-											<path
-												d='M7.75186 12.1117V25.0367C7.75186 25.589 8.19958 26.0367 8.75186 26.0367H21.6769'
-												stroke='#444444'
-												stroke-width='4'
-												stroke-linecap='round'
-											/>
-										</svg>
-									)}
-								</div>
-							</div>
-							{timerExpanded && (
-								<div className=' px-[22px] pt-[6px] '>
-									<div className='flex'>
-										<div>
-											<div
-												className='flex justify-center mb-5 rounded-[6px] p-6 w-fit'
-												style={{
-													background:
-														'rgba(255,255,255,0.8)',
-												}}
-											>
-												<Digit digit={getHours()[0]} />
-												<Digit digit={getHours()[1]} />
-												<div className='colon' />
-												<Digit digit={getMins()[0]} />
-												<Digit digit={getMins()[1]} />
-												<div className='colon' />
-												<Digit digit={getSecs()[0]} />
-												<Digit digit={getSecs()[1]} />
-											</div>
-											<div className='cursor-pointer bg-[#484BC9] border-solid border border-[#000] rounded-[40px] relative w-full h-[55px]'>
-												<svg
-													className='absolute top-[20px] right-[40px]'
-													width='14'
-													height='16'
-													viewBox='0 0 14 16'
-													fill='none'
-													xmlns='http://www.w3.org/2000/svg'
-												>
-													<path
-														d='M1.99994 15.0469C1.79161 15.0469 1.59629 15.0078 1.414 14.9297C1.23171 14.8516 1.07025 14.7448 0.929626 14.6094C0.79421 14.474 0.687439 14.3151 0.609314 14.1328C0.531189 13.9505 0.492126 13.7552 0.492126 13.5469V2.45312C0.492126 2.24479 0.531189 2.04948 0.609314 1.86719C0.687439 1.6849 0.79421 1.52604 0.929626 1.39062C1.06504 1.25521 1.2239 1.14844 1.40619 1.07031C1.58848 0.992188 1.78379 0.953125 1.99213 0.953125C2.11713 0.953125 2.24213 0.96875 2.36713 1C2.49213 1.03125 2.60931 1.07812 2.71869 1.14062L12.6718 6.6875C12.9114 6.82292 13.0989 7.00781 13.2343 7.24219C13.3697 7.47135 13.4374 7.72396 13.4374 8C13.4374 8.28125 13.3697 8.53646 13.2343 8.76562C13.1041 8.99479 12.9166 9.17708 12.6718 9.3125L2.7265 14.8594C2.61713 14.9219 2.49994 14.9688 2.37494 15C2.24994 15.0312 2.12494 15.0469 1.99994 15.0469Z'
-														fill='white'
-														fill-opacity='0.8956'
-													/>
-												</svg>
-											</div>
+									<div className='text-[20px] font-semibold'>
+										Timer setup
+									</div>
+									{timerExpanded && (
+										<div className=' text-[16px] font-normal max-w-[440px]'>
+											Before we process your final video,
+											please tell us how long you want the
+											video duration to be
 										</div>
-										<div className='flex flex-col gap-2 pl-[35px]'>
-											<div className='rounded-[10px] bg-[#fff] border-[#444] border-[2px] py-[12px] px-[24px] cursor-pointer'>
-												Customized duration
+									)}
+									<div
+										className={classNames(
+											'absolute top-1 right-4 cursor-pointer',
+											{
+												'relative top-0 right-0 ml-auto':
+													!timerExpanded,
+											}
+										)}
+										onClick={() => {
+											setTimeExpanded((prev) => !prev);
+										}}
+									>
+										{timerExpanded ? (
+											<svg
+												xmlns='http://www.w3.org/2000/svg'
+												width='38'
+												height='37'
+												viewBox='0 0 38 37'
+												fill='none'
+											>
+												<path
+													d='M21.1349 2.15079V15.0758C21.1349 15.6281 21.5826 16.0758 22.1349 16.0758H35.0599'
+													stroke='#444444'
+													stroke-width='4'
+													stroke-linecap='round'
+												/>
+												<path
+													d='M15.925 35.0016V22.0766C15.925 21.5243 15.4773 21.0766 14.925 21.0766H1.99999'
+													stroke='#444444'
+													stroke-width='4'
+													stroke-linecap='round'
+												/>
+											</svg>
+										) : (
+											<svg
+												width='34'
+												height='33'
+												viewBox='0 0 34 33'
+												fill='none'
+												xmlns='http://www.w3.org/2000/svg'
+											>
+												<path
+													d='M26.8868 21.0367V8.11172C26.8868 7.55944 26.4391 7.11172 25.8868 7.11172H12.9618'
+													stroke='#444444'
+													stroke-width='4'
+													stroke-linecap='round'
+												/>
+												<path
+													d='M7.75186 12.1117V25.0367C7.75186 25.589 8.19958 26.0367 8.75186 26.0367H21.6769'
+													stroke='#444444'
+													stroke-width='4'
+													stroke-linecap='round'
+												/>
+											</svg>
+										)}
+									</div>
+								</div>
+								{timerExpanded && (
+									<div className=' px-[22px] pt-[6px] '>
+										<div className='flex'>
+											<div>
+												<div
+													className='flex justify-center mb-5 rounded-[6px] p-6 w-fit'
+													style={{
+														background:
+															'rgba(255,255,255,0.8)',
+													}}
+												>
+													<Digit
+														digit={getHours()[0]}
+													/>
+													<Digit
+														digit={getHours()[1]}
+													/>
+													<div className='colon' />
+													<Digit
+														digit={getMins()[0]}
+													/>
+													<Digit
+														digit={getMins()[1]}
+													/>
+													<div className='colon' />
+													<Digit
+														digit={getSecs()[0]}
+													/>
+													<Digit
+														digit={getSecs()[1]}
+													/>
+												</div>
+												<div className='cursor-pointer bg-[#484BC9] border-solid border border-[#000] rounded-[40px] relative w-full h-[55px]'>
+													<svg
+														className='absolute top-[20px] right-[40px]'
+														width='14'
+														height='16'
+														viewBox='0 0 14 16'
+														fill='none'
+														xmlns='http://www.w3.org/2000/svg'
+													>
+														<path
+															d='M1.99994 15.0469C1.79161 15.0469 1.59629 15.0078 1.414 14.9297C1.23171 14.8516 1.07025 14.7448 0.929626 14.6094C0.79421 14.474 0.687439 14.3151 0.609314 14.1328C0.531189 13.9505 0.492126 13.7552 0.492126 13.5469V2.45312C0.492126 2.24479 0.531189 2.04948 0.609314 1.86719C0.687439 1.6849 0.79421 1.52604 0.929626 1.39062C1.06504 1.25521 1.2239 1.14844 1.40619 1.07031C1.58848 0.992188 1.78379 0.953125 1.99213 0.953125C2.11713 0.953125 2.24213 0.96875 2.36713 1C2.49213 1.03125 2.60931 1.07812 2.71869 1.14062L12.6718 6.6875C12.9114 6.82292 13.0989 7.00781 13.2343 7.24219C13.3697 7.47135 13.4374 7.72396 13.4374 8C13.4374 8.28125 13.3697 8.53646 13.2343 8.76562C13.1041 8.99479 12.9166 9.17708 12.6718 9.3125L2.7265 14.8594C2.61713 14.9219 2.49994 14.9688 2.37494 15C2.24994 15.0312 2.12494 15.0469 1.99994 15.0469Z'
+															fill='white'
+															fill-opacity='0.8956'
+														/>
+													</svg>
+												</div>
 											</div>
-											<div className='flex gap-2'>
-												<div
-													className='flex-1 rounded-[10px] bg-[#E7E7E7] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer'
-													onClick={() => {
-														restart(
-															(() => {
-																const dt =
-																	new Date();
-																dt.setMinutes(
-																	dt.getMinutes() +
-																		10
-																);
-																return dt;
-															})()
-														);
-													}}
-												>
-													10 min
+											<div className='flex flex-col gap-2 pl-[35px]'>
+												<div className='rounded-[10px] bg-[#fff] border-[#444] border-[2px] py-[12px] px-[24px] cursor-pointer'>
+													Customized duration
 												</div>
-												<div
-													className='flex-1 rounded-[10px] bg-[#E7E7E7] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer'
-													onClick={() => {
-														restart(
-															(() => {
-																const dt =
-																	new Date();
-																dt.setMinutes(
-																	dt.getMinutes() +
-																		30
-																);
-																return dt;
-															})()
-														);
-													}}
-												>
-													30 min
+												<div className='flex gap-2'>
+													<div
+														className='flex-1 rounded-[10px] bg-[#E7E7E7] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer'
+														onClick={() => {
+															restart(
+																(() => {
+																	const dt =
+																		new Date();
+																	dt.setMinutes(
+																		dt.getMinutes() +
+																			10
+																	);
+																	return dt;
+																})()
+															);
+														}}
+													>
+														10 min
+													</div>
+													<div
+														className='flex-1 rounded-[10px] bg-[#E7E7E7] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer'
+														onClick={() => {
+															restart(
+																(() => {
+																	const dt =
+																		new Date();
+																	dt.setMinutes(
+																		dt.getMinutes() +
+																			30
+																	);
+																	return dt;
+																})()
+															);
+														}}
+													>
+														30 min
+													</div>
 												</div>
-											</div>
-											<div className='flex gap-2'>
-												<div
-													className='flex-1 rounded-[10px] bg-[#E7E7E7] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer'
-													onClick={() => {
-														restart(
-															(() => {
-																const dt =
-																	new Date();
-																dt.setHours(
-																	dt.getHours() +
-																		1
-																);
-																return dt;
-															})()
-														);
-													}}
-												>
-													1 hour
-												</div>
-												<div
-													className='flex-1 rounded-[10px] bg-[#E7E7E7] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer'
-													onClick={() => {
-														restart(
-															(() => {
-																const dt =
-																	new Date();
-																dt.setHours(
-																	dt.getHours() +
-																		2
-																);
-																return dt;
-															})()
-														);
-													}}
-												>
-													2 hour
+												<div className='flex gap-2'>
+													<div
+														className='flex-1 rounded-[10px] bg-[#E7E7E7] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer'
+														onClick={() => {
+															restart(
+																(() => {
+																	const dt =
+																		new Date();
+																	dt.setHours(
+																		dt.getHours() +
+																			1
+																	);
+																	return dt;
+																})()
+															);
+														}}
+													>
+														1 hour
+													</div>
+													<div
+														className='flex-1 rounded-[10px] bg-[#E7E7E7] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer'
+														onClick={() => {
+															restart(
+																(() => {
+																	const dt =
+																		new Date();
+																	dt.setHours(
+																		dt.getHours() +
+																			2
+																	);
+																	return dt;
+																})()
+															);
+														}}
+													>
+														2 hour
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							)}
-						</div>
+								)}
+							</div>
+						)}
 					</div>
 				</div>
 			</Modal>
@@ -1062,9 +1306,15 @@ export default function Form() {
 				text={sectionTextMap[curSection] || ''}
 			/>
 			<div className='bg-[#EEE] w-full justify-center pt-[50px] h-[804px] flex flex-col'>
-				{renderQuestion(
-					questionForm[curSection].questions[questionNum]
-				)}
+				<DndContext
+					sensors={sensors}
+					collisionDetection={closestCenter}
+					onDragEnd={handleDragEnd}
+				>
+					{renderQuestion(
+						questionForm[curSection].questions[questionNum]
+					)}
+				</DndContext>
 				<div className='flex mt-auto'>
 					{(questionNum > 0 || curSection > 1) && (
 						<div

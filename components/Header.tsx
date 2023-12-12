@@ -1,10 +1,24 @@
 'use client';
 import Image from 'next/image';
+import { useEffect, useRef } from 'react';
 
 export default function Header() {
+	const ref = useRef<any>();
+	useEffect(() => {
+		if (ref.current) {
+			(ref.current as HTMLVideoElement).play();
+		}
+	}, []);
 	return (
-		<div className='h-[914px] relative w-full bg-[#000]  bg-opacity-40'>
-			<div className='flex flex-col items-center justify-center h-full'>
+		<div className='h-[900px] relative w-full bg-[#000]  bg-opacity-40'>
+			<video
+				ref={ref}
+				src='/heropage.mp4'
+				className='absolute inset-0 w-full z-0'
+				autoPlay={true}
+				loop={true}
+			/>
+			<div className='flex flex-col items-center justify-center h-full z-[1] relative'>
 				<div className='flex text-[16px] absolute top-[18px] right-[18px] gap-[20px]   text-[#fff]'>
 					<div className='flex gap-3 items-center rounded-[67.5px] bg-[#000] opacity-60 w-[133px] h-[52px] justify-center cursor-pointer'>
 						Sign up
@@ -87,7 +101,7 @@ export default function Header() {
 							Find out your best fit
 						</div>
 						<div className=' font-light  leading-6'>
-							Based on your answers, we&apos;ll create a unique
+							Based on your answers, we&lsquo;ll create a unique
 							soothing ambience just for you. Be ready to immerse
 							in your very own universe!
 						</div>
