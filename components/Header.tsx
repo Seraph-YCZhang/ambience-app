@@ -74,7 +74,7 @@ export default function Header() {
 					</div>
 				</div>
 				<div className='flex items-stretch mb-[60px] mt-auto px-[52px]'>
-					<div className='bg-[#C6C4D5] rounded-[18px] py-[21px] px-[44px] basis-[391px] flex-1'>
+					<div className='bg-[#C6C4D5] rounded-[18px] py-[21px] px-[44px] basis-[379px] flex-1'>
 						<div className='text-[#252525] text-[24px] font-semibold mb-[10px]'>
 							Take the test
 						</div>
@@ -97,14 +97,12 @@ export default function Header() {
 							/>
 						</svg>
 					</div>
-					<div className='bg-[#D0CABB] rounded-[18px] py-[21px] px-[44px]   basis-[542px]  flex-1'>
+					<div className='bg-[#D0CABB] rounded-[18px] py-[21px] px-[44px]   basis-[377px]  flex-1'>
 						<div className='text-[#252525] text-[24px] font-semibold  mb-[10px]'>
 							Find out your best fit
 						</div>
 						<div className=' font-light  leading-6'>
-							Based on your answers, we&lsquo;ll create a unique
-							soothing ambience just for you. Be ready to immerse
-							in your very own universe!
+						Based on your answers, we’ll create a unique soothing ambient video unit just for you.
 						</div>
 					</div>
 					<div className='flex items-center  px-1'>
@@ -121,7 +119,7 @@ export default function Header() {
 							/>
 						</svg>
 					</div>
-					<div className='bg-[#BCD1BE] rounded-[18px]  py-[21px] px-[44px]   basis-[587px]  flex-1'>
+					<div className='bg-[#BCD1BE] rounded-[18px]  py-[21px] px-[44px]   basis-[549px]  flex-1'>
 						<div className='text-[#252525] text-[24px] font-semibold  mb-[10px]'>
 							Get relaxed, focused, or productive
 						</div>

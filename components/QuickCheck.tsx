@@ -23,7 +23,7 @@ export default function QuickCheck() {
 					});
 				}}
 			>
-				<div>Back to Top</div>
+				<div>Back to top</div>
 				<div>
 					<svg
 						xmlns='http://www.w3.org/2000/svg'

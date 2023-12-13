@@ -963,8 +963,9 @@ export default function Form() {
 														);
 													}}
 												>
-													<div className='flex items-center  '>
+													<div className='flex items-center '>
 														<Checkbox
+															className=' shrink-0'
 															value={(
 																questionForm[
 																	curSection
@@ -1715,7 +1716,7 @@ export default function Form() {
 				totalSection={2}
 				text={sectionTextMap[curSection] || ''}
 			/>
-			<div className='bg-[#EEE] w-full justify-center pt-[50px] h-[804px] flex flex-col'>
+			<div className='bg-[#EEE] w-full justify-center pt-[50px] h-[700px] flex flex-col'>
 				<DndContext
 					sensors={sensors}
 					collisionDetection={closestCenter}

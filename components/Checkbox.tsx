@@ -7,10 +7,12 @@ export default function Checkbox({
 	value = false,
 	onChange,
 	type = 'checkbox',
+	className=''
 }: {
 	value?: boolean;
 	onChange?: (v: boolean) => void;
 	type?: 'checkbox' | 'toggle';
+	className?: string;
 }) {
 	const [isChecked, setIsChecked] = useState(value);
 	const ref = useRef<HTMLInputElement>(null);
@@ -36,7 +38,8 @@ export default function Checkbox({
 						'border-[#C8C8C8]': isChecked,
 						'text-[#484BC9]': isChecked,
 						'text-[rgba(255,255,255,0.90)]': !isChecked,
-					}
+					},
+					className
 				)}
 				onClick={() => ref.current?.click()}
 			>
@@ -78,7 +81,8 @@ export default function Checkbox({
 					'bg-[#484BC9]': isChecked,
 					'border-[#D1D1D1]': !isChecked,
 					'border-[#484BC9]': isChecked,
-				}
+				},
+				className
 			)}
 		>
 			<input
