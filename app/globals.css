@@ -4,8 +4,8 @@
 
 body {
     font-family: Inter;
-    --width: 8px;
-    --len: 20px;
+    --width: 4px;
+    --len: 16px;
     --color: #252525;
 }
 
@@ -104,4 +104,46 @@ body {
 .stick.seven {
     transform-origin: var(--origin-right) 50%;
     transform: rotate(90deg);
+}
+
+.timer-bottom {
+    width: 592px;
+    border-radius: 0px 0px 26px 26px;
+    background: var(--ffffff, rgba(255, 255, 255, 0.90));
+    /* media control bottom */
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.04);
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.timer-upper {
+    width: 592px;
+    border-radius: 26px 26px 0px 0px;
+    background: var(--ffffff, rgba(255, 255, 255, 0.90));
+}
+
+.toolbar-fullscreen {
+    width: 230px;
+    border-radius: 26px 26px 0px 0px;
+    background: var(--ffffff, rgba(255, 255, 255, 0.90));
+
+    /* media control bottom */
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.04);
+    height: 52px;
+    padding: 0px 30px;
+    justify-content: center;
+    align-items: center;
+}
+
+.toolbar {
+    border-radius: 0px 0px 26px 26px;
+    background: var(--ffffff, rgba(255, 255, 255, 0.90));
+
+    /* media control bottom */
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.04);
+    height: 52px;
+    padding: 0px 30px;
+    justify-content: center;
+    align-items: center;
+    /* gap: 12px; */
 }

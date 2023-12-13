@@ -28,11 +28,14 @@ export default function Checkbox({
 		return (
 			<div
 				className={classnames(
-					'relative w-[68px] h-[34px] rounded-[70px] border-2 border-[#D1D1D1] cursor-pointer',
+					'relative w-[86px] h-[34px] rounded-[70px] border-2 border-[#D1D1D1] cursor-pointer',
 					{
-						'bg-[#fff]': !isChecked,
-						'border-[#D1D1D1]': !isChecked,
-						'border-[#484BC9]': isChecked,
+						'bg-[#C8C8C8]': !isChecked,
+						'bg-[#DADBF4]': isChecked,
+						'border-[#DADBF4]': !isChecked,
+						'border-[#C8C8C8]': isChecked,
+						'text-[#484BC9]': isChecked,
+						'text-[rgba(255,255,255,0.90)]': !isChecked,
 					}
 				)}
 				onClick={() => ref.current?.click()}
@@ -46,10 +49,19 @@ export default function Checkbox({
 					onChange={handleOnChange}
 				/>
 				<div
-					className='rounded-[32px] w-[32px] h-[32px] top-0 absolute'
+					className='absolute h-full flex items-center text-[12px] top-0 '
 					style={{
-						backgroundColor: isChecked ? '#484BC9' : '#D1D1D1',
-						left: isChecked ? '32px' : '0px',
+						left: isChecked ? '14px' : undefined,
+						right: isChecked ? undefined : '14px',
+					}}
+				>
+					{isChecked ? 'On' : 'Off'}
+				</div>
+				<div
+					className='rounded-[20px] w-[44px] h-[34px] absolute top-[-2px]' 
+					style={{
+						backgroundColor: '#484BC9',
+						left: isChecked ? '42px' : '0px',
 						transition: 'all 0.5s ease',
 					}}
 				></div>

@@ -52,7 +52,7 @@ export default function Header() {
 				/>
 				<div className='text-[44px] mt-4 max-w-full text-[#fff]'>
 					<span
-						className="text-primary-400 text-[40px] font-black font-['Inter']"
+						className="text-primary-400 text-[40px] font-black  "
 						style={{
 							textShadow: '0px 0px 10px rgba(0, 0, 0, 0.70)',
 						}}
@@ -62,14 +62,14 @@ export default function Header() {
 					away from your own soothing universe
 				</div>
 				<div
-					className='mt-[90px] w-[560px] h-[72px] bg-[#484BC9] rounded-[67.5px] cursor-pointer flex items-center justify-center'
+					className='mt-[90px] w-[560px] h-[62px] bg-[#484BC9] rounded-[67.5px] cursor-pointer flex items-center justify-center'
 					onClick={() => {
 						document
 							.getElementById('form')
 							?.scrollIntoView({ behavior: 'smooth' });
 					}}
 				>
-					<div className="text-center text-[#fff] text-[28px] font-medium font-['Inter'] uppercase">
+					<div className="text-center text-[#fff] text-[28px] font-medium   uppercase">
 						START TEST
 					</div>
 				</div>
