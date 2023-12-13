@@ -802,6 +802,16 @@ export default function Form() {
 																		op.value
 																	) && (
 																		<input
+																			value={
+																				questionForm[
+																					curSection
+																				]
+																					.questions[
+																					questionNum
+																				]
+																					.extra
+																					?.other
+																			}
 																			onChange={(
 																				e
 																			) => {
@@ -818,12 +828,48 @@ export default function Form() {
 																					]
 																						.extra ??
 																					{};
-																				questionForm[
-																					curSection
-																				].questions[
-																					questionNum
-																				].extra.other =
-																					e.target.value;
+																				console.log(
+																					'hh',
+																					e
+																						.target
+																						.value
+																				);
+																				// questionForm[
+																				// 	curSection
+																				// ].questions[
+																				// 	questionNum
+																				// ].extra.other =
+																				// 	e.target.value;
+																				setQuestionForm(
+																					(
+																						prev
+																					) => ({
+																						...prev,
+																						[curSection]:
+																							{
+																								...prev[
+																									curSection
+																								],
+																								questions:
+																									prev[
+																										curSection
+																									].questions.map(
+																										(
+																											q
+																										) => ({
+																											...q,
+																											extra: {
+																												...(q.extra ||
+																													{}),
+																												other: e
+																													.target
+																													.value,
+																											},
+																										})
+																									),
+																							},
+																					})
+																				);
 																			}}
 																			placeholder='Type in...'
 																			className='mt-[30px] w-[355px] px-[20px] h-[60px] rounded-[10px] border-2 border-[#D1D1D1] outline-none'
@@ -949,6 +995,14 @@ export default function Form() {
 															op.value
 														) && (
 															<input
+																value={
+																	questionForm[
+																		curSection
+																	].questions[
+																		questionNum
+																	].extra
+																		?.other
+																}
 																onChange={(
 																	e
 																) => {
@@ -965,12 +1019,42 @@ export default function Form() {
 																		]
 																			.extra ??
 																		{};
-																	questionForm[
-																		curSection
-																	].questions[
-																		questionNum
-																	].extra.other =
-																		e.target.value;
+
+																	setQuestionForm(
+																		(
+																			prev
+																		) => ({
+																			...prev,
+																			[curSection]:
+																				{
+																					...prev[
+																						curSection
+																					],
+																					questions:
+																						prev[
+																							curSection
+																						].questions.map(
+																							(
+																								q
+																							) => ({
+																								...q,
+																								extra: {
+																									...(q.extra ||
+																										{}),
+																									other: e
+																										.target
+																										.value,
+																								},
+																							})
+																						),
+																				},
+																		})
+																	);
+																	console.log(
+																		'de e',
+																		e.target
+																			.value
+																	);
 																}}
 																placeholder='Type in...'
 																className='mt-[30px] w-[355px] px-[20px] h-[60px] rounded-[10px] border-2 border-[#D1D1D1] outline-none'
@@ -1706,8 +1790,33 @@ export default function Form() {
 					</div>
 					<div
 						className={classNames(
-							'ml-10  mr-[52px] w-[560px] h-[62px] bg-[#484BC9] rounded-[67.5px] cursor-pointer flex items-center justify-center',
+							'ml-10  mr-[52px] w-[560px] h-[62px] bg-[#484BC9] rounded-[67.5px] flex items-center justify-center',
 							{
+								'cursor-pointer ': !(curSection === 1 &&
+								questionNum === 0
+									? (colors.length === 0 &&
+											!(
+												questionForm[curSection]
+													.questions[questionNum]
+													.values as string[]
+											).includes('no')) ||
+									  questionForm[curSection].questions[
+											questionNum
+									  ].values.length === 0
+									: (
+											questionForm[curSection].questions[
+												questionNum
+											].values as string[]
+									  ).includes('Other')
+									? questionForm[curSection].questions[
+											questionNum
+									  ].extra?.other === undefined ||
+									  questionForm[curSection].questions[
+											questionNum
+									  ].extra?.other === ''
+									: questionForm[curSection].questions[
+											questionNum
+									  ].values.length === 0),
 								'bg-[#C8C8C8] cursor-not-allowed':
 									curSection === 1 && questionNum === 0
 										? (colors.length === 0 &&
@@ -1736,6 +1845,10 @@ export default function Form() {
 							}
 						)}
 						onClick={() => {
+							console.log(
+								'dddddebug',
+								questionForm[curSection].questions[questionNum]
+							);
 							if (
 								curSection === 1 && questionNum === 0
 									? (colors.length === 0 &&
@@ -1747,6 +1860,17 @@ export default function Form() {
 									  questionForm[curSection].questions[
 											questionNum
 									  ].values.length === 0
+									: (
+											questionForm[curSection].questions[
+												questionNum
+											].values as string[]
+									  ).includes('Other')
+									? questionForm[curSection].questions[
+											questionNum
+									  ].extra?.other === undefined ||
+									  questionForm[curSection].questions[
+											questionNum
+									  ].extra?.other === ''
 									: questionForm[curSection].questions[
 											questionNum
 									  ].values.length === 0
