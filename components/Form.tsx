@@ -1227,7 +1227,7 @@ export default function Form() {
 								className='relative flex items-center justify-center'
 								id='generated-image-ctn'
 							>
-								<div className='relative'>
+								<div className='relative min-h-[500px]'>
 									<video
 										id='video-player'
 										src='/unit.mp4'
@@ -1237,13 +1237,14 @@ export default function Form() {
 										// controls
 										style={{
 											width: '100%',
+
 											position: 'relative',
 										}}
 									/>
 									{isFullScreen && (
 										<div className='toolbar-fullscreen absolute right-0 bottom-0 flex-1 flex px-[30px] items-stretch'>
 											<div
-												className='border-solid border-[#C8C8C8] border-r cursor-pointer h-full flex justify-start px-3 items-center flex-1'
+												className='border-solid border-[#C8C8C8] border-r cursor-pointer h-full flex justify-start items-center flex-1'
 												onClick={() =>
 													setAudioOn((prev) => !prev)
 												}
@@ -1267,7 +1268,7 @@ export default function Form() {
 												<AirdropIcon />
 											</div>
 											<div
-												className='cursor-pointer px-3 h-full flex items-center justify-end  flex-1'
+												className='cursor-pointer h-full flex items-center justify-end  flex-1'
 												onClick={() => {
 													const elem =
 														document.getElementById(

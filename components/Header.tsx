@@ -50,7 +50,7 @@ export default function Header() {
 					height={57.5}
 					priority
 				/>
-				<div className='text-[44px] mt-4 max-w-full text-[#fff]'>
+				<div className='text-[36px] mt-4 max-w-full text-[#fff]'>
 					<span
 						className="text-primary-400 text-[40px] font-black  "
 						style={{

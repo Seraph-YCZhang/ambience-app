@@ -28,7 +28,7 @@ export default function Checkbox({
 		return (
 			<div
 				className={classnames(
-					'relative w-[86px] h-[34px] rounded-[70px] border-2 border-[#D1D1D1] cursor-pointer',
+					'relative w-[86px] h-[34px] rounded-[70px] border cursor-pointer',
 					{
 						'bg-[#C8C8C8]': !isChecked,
 						'bg-[#DADBF4]': isChecked,
@@ -58,7 +58,7 @@ export default function Checkbox({
 					{isChecked ? 'On' : 'Off'}
 				</div>
 				<div
-					className='rounded-[20px] w-[44px] h-[34px] absolute top-[-2px]' 
+					className='rounded-[20px] w-[42px] h-[32px] absolute top-[0px]' 
 					style={{
 						backgroundColor: '#484BC9',
 						left: isChecked ? '42px' : '0px',

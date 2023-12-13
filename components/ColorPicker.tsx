@@ -87,9 +87,21 @@ export default function ColorPicker({
 							className='flex flex-col gap-[10px] items-center cursor-pointer'
 							onClick={() => {
 								if (isMulti) {
-									setSelected((prev) => [...prev, c.color]);
+									setSelected((prev) =>
+										prev.includes(c.color)
+											? prev.filter(
+													(cl) => cl !== c.color
+											  )
+											: [...prev, c.color]
+									);
 								} else {
-									setSelected((prev) => [c.color]);
+									setSelected((prev) =>
+										prev.includes(c.color)
+											? prev.filter(
+													(cl) => cl !== c.color
+											  )
+											: [c.color]
+									);
 								}
 							}}
 						>
