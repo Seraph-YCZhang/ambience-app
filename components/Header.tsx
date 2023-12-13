@@ -74,7 +74,7 @@ export default function Header() {
 					</div>
 				</div>
 				<div className='flex items-stretch mb-[60px] mt-auto px-[52px]'>
-					<div className='bg-[#C6C4D5] rounded-[18px] py-[20px] px-[50px] basis-[391px] flex-1'>
+					<div className='bg-[#C6C4D5] rounded-[18px] py-[21px] px-[44px] basis-[391px] flex-1'>
 						<div className='text-[#252525] text-[24px] font-semibold mb-[10px]'>
 							Take the test
 						</div>
@@ -97,7 +97,7 @@ export default function Header() {
 							/>
 						</svg>
 					</div>
-					<div className='bg-[#D0CABB] rounded-[18px] py-[20px] px-[50px]  basis-[542px]  flex-1'>
+					<div className='bg-[#D0CABB] rounded-[18px] py-[21px] px-[44px]   basis-[542px]  flex-1'>
 						<div className='text-[#252525] text-[24px] font-semibold  mb-[10px]'>
 							Find out your best fit
 						</div>
@@ -121,7 +121,7 @@ export default function Header() {
 							/>
 						</svg>
 					</div>
-					<div className='bg-[#BCD1BE] rounded-[18px]  py-[20px] px-[50px]  basis-[587px]  flex-1'>
+					<div className='bg-[#BCD1BE] rounded-[18px]  py-[21px] px-[44px]   basis-[587px]  flex-1'>
 						<div className='text-[#252525] text-[24px] font-semibold  mb-[10px]'>
 							Get relaxed, focused, or productive
 						</div>
