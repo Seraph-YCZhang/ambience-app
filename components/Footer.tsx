@@ -35,7 +35,7 @@ export default function Footer() {
 									</svg>
 								</div>
 							</div>
-							<div className=' ml-2 flex justify-between'>
+							<div className=' ml-2 flex justify-between items-end'>
 								<div>© 2023 Cozyverse</div>
 								<div className='flex gap-[30px] ml-[auto]'>
 									<Image
@@ -77,7 +77,7 @@ export default function Footer() {
 							</div>
 						</div>
 					</div>
-					<div className='ml-auto pl-[100px] flex gap-[50px] items-center text-[#fff] text-[16px]'>
+					<div className='ml-auto pl-[100px] flex gap-[50px] items-end text-[#fff] text-[16px]'>
 						<div className='flex flex-col gap-4'>
 							<div className='text-[16px] font-semibold'>
 								Team

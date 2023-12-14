@@ -1248,14 +1248,14 @@ export default function Form() {
 						</div>
 						<div>
 							<Image
-								src='/form_image_1.png'
+								src='/santa.gif'
 								width={617}
 								height={224}
 								alt='form_img'
 							/>
 						</div>
 						<div className='flex items-center gap-6 text-[16px] text-[#252525] font-normal'>
-						Add Christmas vibes <Checkbox type='toggle' /> 
+							Add Christmas vibes <Checkbox type='toggle' />
 						</div>
 						<div
 							className={classNames(
@@ -1438,9 +1438,21 @@ export default function Form() {
 														<div
 															className='cursor-pointer bg-[#484BC9] rounded-[40px] relative w-full h-[55px] flex gap-[12px] justify-center items-center'
 															onClick={() => {
-																isRunning
-																	? pause()
-																	: start();
+																if (isRunning) {
+																	pause();
+																	(
+																		document.getElementById(
+																			'video-player'
+																		) as HTMLVideoElement
+																	)?.pause();
+																} else {
+																	start();
+																	(
+																		document.getElementById(
+																			'video-player'
+																		) as HTMLVideoElement
+																	)?.play();
+																}
 															}}
 														>
 															<div className='text-[#fff]'>
@@ -1909,7 +1921,7 @@ export default function Form() {
 				</div>
 
 				<div
-					className='w-full relative h-[30px] mt-[40px]'
+					className='w-full relative h-[30px] mt-[40px] shrink-0'
 					style={{ background: 'rgba(72, 75, 201, 0.2)' }}
 				>
 					<div
