@@ -1254,8 +1254,8 @@ export default function Form() {
 								alt='form_img'
 							/>
 						</div>
-						<div className='flex items-center gap-6 text-[20px] text-[#252525] font-semibold'>
-							<Checkbox type='toggle' /> Add Christmas vibes
+						<div className='flex items-center gap-6 text-[16px] text-[#252525] font-normal'>
+						Add Christmas vibes <Checkbox type='toggle' /> 
 						</div>
 						<div
 							className={classNames(
@@ -1265,7 +1265,7 @@ export default function Form() {
 								setModalStep(2);
 							}}
 						>
-							<div className='text-center text-[#fff] text-[28px] font-medium  uppercase'>
+							<div className='text-center text-[#fff] text-[16px] font-medium'>
 								Confirm
 							</div>
 						</div>
