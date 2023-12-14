@@ -52,7 +52,7 @@ export default function Header() {
 				/>
 				<div className='text-[36px] mt-4 max-w-full text-[#fff]'>
 					<span
-						className="text-primary-400 text-[40px] font-black  "
+						className='text-primary-400 text-[40px] font-black  '
 						style={{
 							textShadow: '0px 0px 10px rgba(0, 0, 0, 0.70)',
 						}}
@@ -69,16 +69,16 @@ export default function Header() {
 							?.scrollIntoView({ behavior: 'smooth' });
 					}}
 				>
-					<div className="text-center text-[#fff] text-[28px] font-medium   uppercase">
+					<div className='text-center text-[#fff] text-[28px] font-medium   uppercase'>
 						START TEST
 					</div>
 				</div>
 				<div className='flex items-stretch mb-[60px] mt-auto px-[52px]'>
 					<div className='bg-[#C6C4D5] rounded-[18px] py-[21px] px-[44px] basis-[379px] flex-1'>
-						<div className='text-[#252525] text-[24px] font-semibold mb-[10px]'>
+						<div className='text-[#252525] text-[24px] font-bold mb-[10px]'>
 							Take the test
 						</div>
-						<div className='font-light leading-6'>
+						<div className='font-light leading-6  text-[20px] text-[#444]'>
 							Complete the 10-question test, which takes about 4
 							minutes, to let us get to know you
 						</div>
@@ -98,11 +98,12 @@ export default function Header() {
 						</svg>
 					</div>
 					<div className='bg-[#D0CABB] rounded-[18px] py-[21px] px-[44px]   basis-[377px]  flex-1'>
-						<div className='text-[#252525] text-[24px] font-semibold  mb-[10px]'>
+						<div className='text-[#252525] text-[24px] font-bold  mb-[10px]'>
 							Find out your best fit
 						</div>
-						<div className=' font-light  leading-6'>
-						Based on your answers, we’ll create a unique soothing ambient video unit just for you.
+						<div className=' font-light  leading-6  text-[20px]  text-[#444]'>
+							Based on your answers, we’ll create a unique
+							soothing ambient video unit just for you.
 						</div>
 					</div>
 					<div className='flex items-center  px-1'>
@@ -120,13 +121,13 @@ export default function Header() {
 						</svg>
 					</div>
 					<div className='bg-[#BCD1BE] rounded-[18px]  py-[21px] px-[44px]   basis-[549px]  flex-1'>
-						<div className='text-[#252525] text-[24px] font-semibold  mb-[10px]'>
+						<div className='text-[#252525] text-[24px] font-bold  mb-[10px]'>
 							Get relaxed, focused, or productive
 						</div>
-						<div className=' font-light  leading-6'>
-							Play the ambient video as a supportive background
-							environment for your work, study, meditation, sleep,
-							or other activities
+						<div className='font-light leading-6 text-[20px]  text-[#444]'>
+							Set up a customized video duration, and play the
+							ambient video as a supportive vibe for your work,
+							study, meditation, or other activities.
 						</div>
 					</div>
 				</div>

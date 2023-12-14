@@ -211,6 +211,34 @@ const genInitForm = (): QuestionForm => {
 						},
 					],
 				},
+
+				{
+					question: `Do you have a favorite time of day when you feel most relaxed`,
+					values: [],
+					key: 'favorite_time',
+					options: [
+						{
+							text: 'Morning',
+							value: 'Morning',
+						},
+						{
+							text: 'Noon',
+							value: 'Noon',
+						},
+						{
+							text: 'Afternoon',
+							value: 'Afternoon',
+						},
+						{
+							text: 'Night',
+							value: 'Night',
+						},
+						{
+							text: `I don't have a specific time of day when I feel more relaxed; it varies.`,
+							value: 'no_specific',
+						},
+					],
+				},
 			],
 		},
 		2: {
@@ -630,12 +658,12 @@ export default function Form() {
 		return (
 			<div
 				className={classNames(
-					'w-full flex justify-center flex-col items-center px-[200px]'
+					'w-full flex justify-center flex-col items-center px-[140px]'
 				)}
 			>
-				<div className='flex font-normal gap-[20px]  text-[28px] leading-10 mb-[40px]'>
+				<div className='flex font-normal gap-[20px]  text-[20px] leading-[30px] mb-[36px]'>
 					<div
-						className={`text-[#252525] text-[28px] font-bold   leading-10 shrink-0`}
+						className={`text-[#252525] text-[20px] font-bold   leading-[30px] shrink-0`}
 					>
 						Question {questionNum + 1}/
 						{questionForm[curSection].questions.length}
@@ -740,13 +768,13 @@ export default function Form() {
 														>
 															<div
 																key={op.value}
-																className='text-[#777] text-[28px] font-normal leading-10  rounded-[18px] cursor-pointer w-full'
+																className='text-[#777] text-[20px] font-normal leading-10  rounded-[8px] cursor-pointer w-full'
 															>
 																<div className='flex items-center gap-[20px] w-full'>
-																	<div className='bg-[#FFF] text-[#252525] w-[84px] h-[84px] rounded-[18px] flex items-center justify-center'>
+																	<div className='bg-[#FFF] text-[#252525] w-[60px] h-[60px] rounded-[8px] flex items-center justify-center'>
 																		{op.num}
 																	</div>
-																	<div className='flex bg-[#FFF] py-[22px] px-[44px] rounded-[18px] items-center flex-1'>
+																	<div className='flex bg-[#FFF] py-[10px] px-[44px] rounded-[8px] items-center flex-1'>
 																		<div>
 																			{
 																				op.text
@@ -872,7 +900,7 @@ export default function Form() {
 																				);
 																			}}
 																			placeholder='Type in...'
-																			className='mt-[30px] w-[355px] px-[20px] h-[60px] rounded-[10px] border-2 border-[#D1D1D1] outline-none'
+																			className='mt-[30px] w-[355px] px-[20px] h-[60px] rounded-[8px] border-2 border-[#D1D1D1] outline-none'
 																		/>
 																	)}
 															</div>
@@ -949,7 +977,7 @@ export default function Form() {
 											return (
 												<div
 													key={op.value}
-													className='text-[#777] text-[28px] font-normal leading-10 hover:bg-[#DADBF4] rounded-[18px] px-[30px] py-[15px] cursor-pointer'
+													className='text-[#777] text-[20px] font-normal leading-10 hover:bg-[#DADBF4] rounded-[18px] px-[60px] py-[10px] cursor-pointer'
 													onClick={() => {
 														onChange(
 															!(
@@ -1058,7 +1086,7 @@ export default function Form() {
 																	);
 																}}
 																placeholder='Type in...'
-																className='mt-[30px] w-[355px] px-[20px] h-[60px] rounded-[10px] border-2 border-[#D1D1D1] outline-none'
+																className='mt-[30px] w-[355px] px-[20px] h-[60px] rounded-[8px] border-2 border-[#D1D1D1] outline-none'
 															/>
 														)}
 												</div>
@@ -1241,7 +1269,7 @@ export default function Form() {
 								/>
 							</svg>
 						</div>
-						<div className='text-[20px] text-[#252525] max-w-[793px] font-semibold'>
+						<div className='text-[20px] text-[#252525] font-semibold max-w-[575px]'>
 							Before we finalize your ambient video unit, do you
 							want to add some Christmas atmosphere to your
 							ambience?
@@ -1255,7 +1283,7 @@ export default function Form() {
 							/>
 						</div>
 						<div className='flex items-center gap-6 text-[16px] text-[#252525] font-normal'>
-							Add Christmas vibes <Checkbox type='toggle' />
+							Add Christmas vibes <Checkbox type='toggle' defaultValue={true} />
 						</div>
 						<div
 							className={classNames(
@@ -1510,7 +1538,7 @@ export default function Form() {
 													<div className='flex flex-col gap-2 pl-[35px] flex-1'>
 														<div className='flex gap-2'>
 															<div
-																className='flex-1 rounded-[10px] hover:bg-[#fff] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer'
+																className='flex-1 rounded-[8px] hover:bg-[#fff] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer'
 																onClick={() => {
 																	restart(
 																		(() => {
@@ -1529,7 +1557,7 @@ export default function Form() {
 																10 min
 															</div>
 															<div
-																className='flex-1 rounded-[10px] hover:bg-[#fff] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer'
+																className='flex-1 rounded-[8px] hover:bg-[#fff] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer'
 																onClick={() => {
 																	restart(
 																		(() => {
@@ -1550,7 +1578,7 @@ export default function Form() {
 														</div>
 														<div className='flex gap-2'>
 															<div
-																className='flex-1 rounded-[10px] hover:bg-[#fff] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer'
+																className='flex-1 rounded-[8px] hover:bg-[#fff] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer'
 																onClick={() => {
 																	restart(
 																		(() => {
@@ -1569,7 +1597,7 @@ export default function Form() {
 																1 hour
 															</div>
 															<div
-																className='flex-1 rounded-[10px] hover:bg-[#fff] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer'
+																className='flex-1 rounded-[8px] hover:bg-[#fff] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer'
 																onClick={() => {
 																	restart(
 																		(() => {
@@ -1585,7 +1613,7 @@ export default function Form() {
 																	);
 																}}
 															>
-																2 hour
+																2 hours
 															</div>
 														</div>
 														<div className='flex gap-[12px] items-center justify-end mt-auto'>
@@ -1728,7 +1756,7 @@ export default function Form() {
 				totalSection={2}
 				text={sectionTextMap[curSection] || ''}
 			/>
-			<div className='bg-[#EEE] w-full justify-center pt-[50px] h-[700px] flex flex-col'>
+			<div className='bg-[#EEE] w-full justify-center pt-[50px] h-[710px] flex flex-col'>
 				<DndContext
 					sensors={sensors}
 					collisionDetection={closestCenter}
@@ -1738,7 +1766,7 @@ export default function Form() {
 						questionForm[curSection].questions[questionNum]
 					)}
 				</DndContext>
-				<div className='flex items-center mt-auto'>
+				<div className='flex items-center mt-auto mb-[50px]'>
 					{(questionNum > 0 || curSection > 1) && (
 						<div
 							className='text-[#444] text-[28px] font-medium flex items-center cursor-pointer select-none ml-[62px]'
@@ -1919,23 +1947,22 @@ export default function Form() {
 						</div>
 					</div>
 				</div>
-
+			</div>
+			<div
+				className='w-full relative h-[20px] shrink-0'
+				style={{ background: 'rgba(72, 75, 201, 0.2)' }}
+			>
 				<div
-					className='w-full relative h-[30px] mt-[40px] shrink-0'
-					style={{ background: 'rgba(72, 75, 201, 0.2)' }}
-				>
-					<div
-						style={{
-							width: `${
-								(questionNum /
-									(questionForm[curSection].questions.length -
-										1)) *
-								100
-							}%`,
-						}}
-						className='absolute left-0 top-0 bottom-0 h-full bg-[#484BC9]'
-					></div>
-				</div>
+					style={{
+						width: `${
+							(questionNum /
+								(questionForm[curSection].questions.length -
+									1)) *
+							100
+						}%`,
+					}}
+					className='absolute left-0 top-0 bottom-0 h-full bg-[#484BC9]'
+				></div>
 			</div>
 		</div>
 	);

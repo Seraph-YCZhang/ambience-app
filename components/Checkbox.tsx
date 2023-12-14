@@ -4,17 +4,19 @@ import classnames from 'classnames';
 import Image from 'next/image';
 
 export default function Checkbox({
-	value = false,
+	value,
 	onChange,
 	type = 'checkbox',
-	className=''
+	className = '',
+	defaultValue = false,
 }: {
 	value?: boolean;
 	onChange?: (v: boolean) => void;
 	type?: 'checkbox' | 'toggle';
 	className?: string;
+	defaultValue?: boolean;
 }) {
-	const [isChecked, setIsChecked] = useState(value);
+	const [isChecked, setIsChecked] = useState(value ?? defaultValue ?? false);
 	const ref = useRef<HTMLInputElement>(null);
 
 	const handleOnChange = () => {
@@ -23,7 +25,7 @@ export default function Checkbox({
 		onChange && onChange(_v);
 	};
 	useEffect(() => {
-		setIsChecked(value);
+		typeof value !== 'undefined' && setIsChecked(value);
 	}, [value]);
 
 	if (type === 'toggle') {
@@ -61,7 +63,7 @@ export default function Checkbox({
 					{isChecked ? 'On' : 'Off'}
 				</div>
 				<div
-					className='rounded-[20px] w-[42px] h-[32px] absolute top-[0px]' 
+					className='rounded-[18px] w-[42px] h-[32px] absolute top-[0px]'
 					style={{
 						backgroundColor: '#484BC9',
 						left: isChecked ? '42px' : '0px',
@@ -75,7 +77,7 @@ export default function Checkbox({
 	return (
 		<div
 			className={classnames(
-				'relative w-[48px] h-[48px] rounded-lg border-2 border-[#D1D1D1] cursor-pointer',
+				'relative w-[42px] h-[42px] box-border rounded-lg border-2 border-[#D1D1D1] cursor-pointer',
 				{
 					'bg-[#fff]': !isChecked,
 					'bg-[#484BC9]': isChecked,
@@ -87,7 +89,7 @@ export default function Checkbox({
 		>
 			<input
 				className='peer shrink-0
-        appearance-none w-full h-full rounded-sm bg-white cursor-pointer'
+        appearance-none w-full h-full rounded-lg bg-white cursor-pointer'
 				type='checkbox'
 				checked={isChecked}
 				onChange={handleOnChange}

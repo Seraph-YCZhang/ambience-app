@@ -79,7 +79,7 @@ export default function Footer() {
 					</div>
 					<div className='ml-auto pl-[100px] flex gap-[50px] items-end text-[#fff] text-[16px]'>
 						<div className='flex flex-col gap-4'>
-							<div className='text-[16px] font-semibold'>
+							<div className='text-[16px] font-medium'>
 								Team
 							</div>
 							<a className='hover:underline cursor-pointer font-light'>
@@ -97,7 +97,7 @@ export default function Footer() {
 						</div>
 
 						<div className='flex flex-col gap-4'>
-							<div className='text-[16px] font-semibold'>
+							<div className='text-[16px]  font-medium'>
 								Resources
 							</div>
 							<a className='hover:underline cursor-pointer font-light'>
@@ -115,7 +115,7 @@ export default function Footer() {
 						</div>
 
 						<div className='flex flex-col gap-4'>
-							<div className='text-[16px] font-semibold'>
+							<div className='text-[16px]  font-medium'>
 								Legal
 							</div>
 							<a className='hover:underline cursor-pointer font-light'>

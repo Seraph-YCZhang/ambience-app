@@ -72,14 +72,14 @@ export default function ColorPicker({
 		onChange && onChange(selected);
 	}, [selected]);
 	return (
-		<div className='mt-[40px]'>
-			<div className=' font-normal text-[28px] mb-[50px] flex justify-center'>
+		<div className='mt-[36px]'>
+			<div className=' font-normal text-[20px] leading-[26px] mb-[48px] flex justify-center'>
 				{isMulti
 					? 'Select the colors you like'
 					: 'Select your favorite color'}
 			</div>
 
-			<div className='flex gap-[60px]'>
+			<div className='flex gap-[40px] justify-center'>
 				{colorList.map((c) => {
 					return (
 						<div
@@ -106,13 +106,13 @@ export default function ColorPicker({
 							}}
 						>
 							{c.color === 'Other' ? (
-								<input
-									placeholder='Type in your favorite color...'
-									className='w-[355px] px-[20px] h-[60px] rounded-[10px] border-2 border-[#D1D1D1] outline-none'
-								/>
+								<svg xmlns="http://www.w3.org/2000/svg" width="80" height="40" viewBox="0 0 80 40" fill="none">
+								<rect x="1" y="1" width="78" height="38" rx="7" stroke="#C8C8C8" stroke-width="2"/>
+								<path d="M3 5L77 35" stroke="#C8C8C8" stroke-width="2" stroke-linecap="round"/>
+								</svg>
 							) : (
 								<div
-									className='w-[60px] h-[60px] rounded-[10px] flex items-center justify-center'
+									className='w-[80px] h-[40px] rounded-[8px] flex items-center justify-center'
 									style={{ background: `#${c.code}` }}
 								>
 									{selected.includes(c.color) &&
