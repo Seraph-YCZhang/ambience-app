@@ -460,7 +460,7 @@ const genInitForm = (): QuestionForm => {
 					question: `Which sounds do you find relaxing? Please select all that apply or add your own`,
 					values: [],
 					key: 'sounds',
-
+					isTwoLine: true,
 					options: [
 						{
 							text: 'Ocean waves',
@@ -473,10 +473,6 @@ const genInitForm = (): QuestionForm => {
 						{
 							text: `Rainfall`,
 							value: 'Rainfall',
-						},
-						{
-							text: `Crackling fireplace`,
-							value: `Crackling fireplace`,
 						},
 						{
 							text: `Thunderstorms`,
@@ -991,38 +987,42 @@ export default function Form() {
 												});
 											};
 											return (
-												<div
-													key={op.value}
-													className='text-[#777] text-[20px] font-normal leading-10 hover:bg-[#DADBF4] rounded-[18px] px-[60px] py-[10px] cursor-pointer'
-													onClick={() => {
-														onChange(
-															!(
-																questionForm[
-																	curSection
-																].questions[
-																	questionNum
-																]
-																	.values as string[]
-															).includes(op.value)
-														);
-													}}
-												>
-													<div className='flex items-center '>
-														<Checkbox
-															className=' shrink-0'
-															value={(
-																questionForm[
-																	curSection
-																].questions[
-																	questionNum
-																]
-																	.values as string[]
-															).includes(
-																op.value
-															)}
-														/>
-														<div className='ml-[28px]'>
-															{op.text}
+												<>
+													<div
+														key={op.value}
+														className='text-[#777] text-[20px] font-normal leading-10 hover:bg-[#DADBF4] rounded-[18px] px-[60px] py-[10px] cursor-pointer'
+														onClick={() => {
+															onChange(
+																!(
+																	questionForm[
+																		curSection
+																	].questions[
+																		questionNum
+																	]
+																		.values as string[]
+																).includes(
+																	op.value
+																)
+															);
+														}}
+													>
+														<div className='flex items-center '>
+															<Checkbox
+																className=' shrink-0'
+																value={(
+																	questionForm[
+																		curSection
+																	].questions[
+																		questionNum
+																	]
+																		.values as string[]
+																).includes(
+																	op.value
+																)}
+															/>
+															<div className='ml-[28px]'>
+																{op.text}
+															</div>
 														</div>
 													</div>
 													{op.value === 'Other' &&
@@ -1039,89 +1039,93 @@ export default function Form() {
 														).includes(
 															op.value
 														) && (
-															<input
-																value={
-																	questionForm[
-																		curSection
-																	].questions[
-																		questionNum
-																	].extra
-																		?.other
-																}
-																onChange={(
-																	e
-																) => {
-																	questionForm[
-																		curSection
-																	].questions[
-																		questionNum
-																	].extra =
+															<div className='w-full px-[50px]'>
+																<input
+																	value={
 																		questionForm[
 																			curSection
 																		]
 																			.questions[
 																			questionNum
-																		]
-																			.extra ??
-																		{};
+																		].extra
+																			?.other
+																	}
+																	onChange={(
+																		e
+																	) => {
+																		questionForm[
+																			curSection
+																		].questions[
+																			questionNum
+																		].extra =
+																			questionForm[
+																				curSection
+																			]
+																				.questions[
+																				questionNum
+																			]
+																				.extra ??
+																			{};
 
-																	setQuestionForm(
-																		(
-																			prev
-																		) => ({
-																			...prev,
-																			[curSection]:
-																				{
-																					...prev[
-																						curSection
-																					],
-																					questions:
-																						prev[
+																		setQuestionForm(
+																			(
+																				prev
+																			) => ({
+																				...prev,
+																				[curSection]:
+																					{
+																						...prev[
 																							curSection
-																						].questions.map(
-																							(
-																								q
-																							) => ({
-																								...q,
-																								extra: {
-																									...(q.extra ||
-																										{}),
-																									other: e
-																										.target
-																										.value,
-																								},
-																							})
-																						),
-																				},
-																		})
-																	);
-																	console.log(
-																		'de e',
-																		e.target
-																			.value
-																	);
-																}}
-																placeholder={
-																	question.question.includes(
-																		'sounds'
-																	)
-																		? 'Your relaxing sound...'
-																		: 'Type in' +
-																		  (question.question.includes(
-																				'movies'
-																		  )
-																				? ' your favorite movie'
-																				: question.question.includes(
-																						'activi'
-																				  )
-																				? ' your favorite activity'
-																				: '') +
-																		  '...'
-																}
-																className='mt-[20px]  px-[20px] py-[10px] rounded-[8px] border-2 border-[#D1D1D1] outline-none text-[16px] leading-6 w-full'
-															/>
+																						],
+																						questions:
+																							prev[
+																								curSection
+																							].questions.map(
+																								(
+																									q
+																								) => ({
+																									...q,
+																									extra: {
+																										...(q.extra ||
+																											{}),
+																										other: e
+																											.target
+																											.value,
+																									},
+																								})
+																							),
+																					},
+																			})
+																		);
+																		console.log(
+																			'de e',
+																			e
+																				.target
+																				.value
+																		);
+																	}}
+																	placeholder={
+																		question.question.includes(
+																			'sounds'
+																		)
+																			? 'Your relaxing sound...'
+																			: 'Type in' +
+																			  (question.question.includes(
+																					'movies'
+																			  )
+																					? ' your movie'
+																					: question.question.includes(
+																							'activi'
+																					  )
+																					? ' your activity'
+																					: '') +
+																			  '...'
+																	}
+																	className='mt-[20px]  px-[20px] py-[10px] rounded-[8px] border-2 border-[#D1D1D1] outline-none text-[16px] leading-6 w-full'
+																/>
+															</div>
 														)}
-												</div>
+												</>
 											);
 										})}
 									</div>
@@ -1258,8 +1262,8 @@ export default function Form() {
 					},
 					content: {
 						overflow: 'visible',
-						width: '900px',
-						height: '750px',
+						width: '898px',
+						height: '760px',
 						top: '50%',
 						left: '50%',
 						right: 'auto',
@@ -1267,7 +1271,7 @@ export default function Form() {
 						marginRight: '-50%',
 						transform: 'translate(-50%, -50%)',
 						padding: '0',
-						borderRadius: '16px',
+						borderRadius: '8px',
 						border: 0,
 						boxShadow:
 							'0px 2px 21px 0px rgba(0, 0, 0, 0.15), 0px 32px 64px 0px rgba(0, 0, 0, 0.19)',
@@ -1277,7 +1281,7 @@ export default function Form() {
 				{modalStep === 1 && (
 					<div className='w-full h-full flex flex-col justify-center items-center gap-10'>
 						<div
-							className='absolute top-[30px] right-[30px] cursor-pointer'
+							className='absolute z-[1] top-[-26px] right-[-26px] cursor-pointer bg-[#fff] rounded-full w-[52px] h-[52px] flex items-center justify-center'
 							onClick={() => setShowModal(false)}
 						>
 							<svg
@@ -1309,8 +1313,9 @@ export default function Form() {
 						<div>
 							<Image
 								src='/santa.gif'
-								width={617}
-								height={224}
+								width={898}
+								height={300}
+								style={{ width: '100%' }}
 								alt='form_img'
 							/>
 						</div>
