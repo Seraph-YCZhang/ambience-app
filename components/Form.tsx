@@ -206,6 +206,10 @@ const genInitForm = (): QuestionForm => {
 							value: 'the_god_father',
 						},
 						{
+							text: 'The Lord of the Rings',
+							value: 'the_lord_of_the_rings',
+						},
+						{
 							text: `Other`,
 							value: 'Other',
 						},
@@ -234,7 +238,7 @@ const genInitForm = (): QuestionForm => {
 							value: 'Night',
 						},
 						{
-							text: `I don't have a specific time of day when I feel more relaxed; it varies.`,
+							text: `No specific time`,
 							value: 'no_specific',
 						},
 					],
@@ -479,6 +483,14 @@ const genInitForm = (): QuestionForm => {
 							value: 'Thunderstorms',
 						},
 						{
+							text: `Crackling fireplace`,
+							value: 'Crackling fireplace',
+						},
+						{
+							text: `Snowfall`,
+							value: 'Snowfall',
+						},
+						{
 							text: `Other`,
 							value: 'Other',
 						},
@@ -517,6 +529,10 @@ const genInitForm = (): QuestionForm => {
 						{
 							text: `Tea aromas`,
 							value: `Tea aromas`,
+						},
+						{
+							text: 'Citrus',
+							value: 'Citrus',
 						},
 						{
 							text: `Vanilla`,
@@ -770,11 +786,11 @@ export default function Form() {
 																key={op.value}
 																className='text-[#777] text-[20px] font-normal leading-10  rounded-[8px] cursor-pointer w-full'
 															>
-																<div className='flex items-center gap-[20px] w-full'>
-																	<div className='bg-[#FFF] text-[#252525] w-[60px] h-[60px] rounded-[8px] flex items-center justify-center'>
+																<div className='flex items-center gap-[10px] w-full'>
+																	<div className='bg-[#FFF] text-[#252525] w-[62px] h-[62px] rounded-[8px] flex items-center justify-center'>
 																		{op.num}
 																	</div>
-																	<div className='flex bg-[#FFF] py-[10px] px-[44px] rounded-[8px] items-center flex-1'>
+																	<div className='flex bg-[#FFF] py-[16px] px-[50px] rounded-[8px] items-center flex-1'>
 																		<div>
 																			{
 																				op.text
@@ -900,7 +916,7 @@ export default function Form() {
 																				);
 																			}}
 																			placeholder='Type in...'
-																			className='mt-[30px] w-[355px] px-[20px] h-[60px] rounded-[8px] border-2 border-[#D1D1D1] outline-none'
+																			className='mt-[30px] px-[20px] py-[8px] rounded-[8px] border-2 border-[#D1D1D1] outline-none  text-[16px] leading-6 w-full'
 																		/>
 																	)}
 															</div>
@@ -1085,8 +1101,24 @@ export default function Form() {
 																			.value
 																	);
 																}}
-																placeholder='Type in...'
-																className='mt-[30px] w-[355px] px-[20px] h-[60px] rounded-[8px] border-2 border-[#D1D1D1] outline-none'
+																placeholder={
+																	question.question.includes(
+																		'sounds'
+																	)
+																		? 'Your relaxing sound...'
+																		: 'Type in' +
+																		  (question.question.includes(
+																				'movies'
+																		  )
+																				? ' your favorite movie'
+																				: question.question.includes(
+																						'activi'
+																				  )
+																				? ' your favorite activity'
+																				: '') +
+																		  '...'
+																}
+																className='mt-[30px]  px-[20px] py-[10px] rounded-[8px] border-2 border-[#D1D1D1] outline-none text-[16px] leading-6 w-full'
 															/>
 														)}
 												</div>
@@ -1283,7 +1315,8 @@ export default function Form() {
 							/>
 						</div>
 						<div className='flex items-center gap-6 text-[16px] text-[#252525] font-normal'>
-							Add Christmas vibes <Checkbox type='toggle' defaultValue={true} />
+							Add Christmas vibes{' '}
+							<Checkbox type='toggle' defaultValue={true} />
 						</div>
 						<div
 							className={classNames(

@@ -106,10 +106,63 @@ export default function ColorPicker({
 							}}
 						>
 							{c.color === 'Other' ? (
-								<svg xmlns="http://www.w3.org/2000/svg" width="80" height="40" viewBox="0 0 80 40" fill="none">
-								<rect x="1" y="1" width="78" height="38" rx="7" stroke="#C8C8C8" stroke-width="2"/>
-								<path d="M3 5L77 35" stroke="#C8C8C8" stroke-width="2" stroke-linecap="round"/>
-								</svg>
+								selected.includes(c.color) ? (
+									<svg
+										xmlns='http://www.w3.org/2000/svg'
+										width='80'
+										height='40'
+										viewBox='0 0 80 40'
+										fill='none'
+									>
+										<rect
+											x='1'
+											y='1'
+											width='78'
+											height='38'
+											rx='7'
+											fill='#C8C8C8'
+											fill-opacity='0.6'
+											stroke='#C8C8C8'
+											stroke-width='2'
+										/>
+										<path
+											d='M3 5L77 35'
+											stroke='#C8C8C8'
+											stroke-width='2'
+											stroke-linecap='round'
+										/>
+										<path
+											d='M28 18.4412L36.9053 27.2986C37.2954 27.6866 37.9256 27.6866 38.3157 27.2986L52.6916 13'
+											stroke='white'
+											stroke-width='4'
+											stroke-linecap='round'
+										/>
+									</svg>
+								) : (
+									<svg
+										xmlns='http://www.w3.org/2000/svg'
+										width='80'
+										height='40'
+										viewBox='0 0 80 40'
+										fill='none'
+									>
+										<rect
+											x='1'
+											y='1'
+											width='78'
+											height='38'
+											rx='7'
+											stroke='#C8C8C8'
+											stroke-width='2'
+										/>
+										<path
+											d='M3 5L77 35'
+											stroke='#C8C8C8'
+											stroke-width='2'
+											stroke-linecap='round'
+										/>
+									</svg>
+								)
 							) : (
 								<div
 									className='w-[80px] h-[40px] rounded-[8px] flex items-center justify-center'
