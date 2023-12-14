@@ -147,3 +147,9 @@ body {
     align-items: center;
     /* gap: 12px; */
 }
+
+.model-step-one {
+    background:  rgba(252, 252, 252, 0.85);
+    background-blend-mode: normal, color, luminosity;
+
+}

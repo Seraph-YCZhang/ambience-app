@@ -1279,7 +1279,7 @@ export default function Form() {
 				}}
 			>
 				{modalStep === 1 && (
-					<div className='w-full h-full flex flex-col justify-center items-center gap-10'>
+					<div className='w-full h-full flex flex-col justify-center items-center pt-[60px] pb-[65px] model-step-one'>
 						<div
 							className='absolute z-[1] top-[-26px] right-[-26px] cursor-pointer bg-[#fff] rounded-full w-[52px] h-[52px] flex items-center justify-center'
 							onClick={() => setShowModal(false)}
@@ -1305,12 +1305,12 @@ export default function Form() {
 								/>
 							</svg>
 						</div>
-						<div className='text-[20px] text-[#252525] font-semibold max-w-[575px]'>
+						<div className='text-[20px] text-[#252525] font-semibold max-w-[575px] mb-[24px]'>
 							Before we finalize your ambient video unit, do you
 							want to add some Christmas atmosphere to your
 							ambience?
 						</div>
-						<div>
+						<div className='w-[898px] min-h-[300px]'>
 							<Image
 								src='/santa.gif'
 								width={898}
@@ -1319,7 +1319,7 @@ export default function Form() {
 								alt='form_img'
 							/>
 						</div>
-						<div className='flex items-center gap-6 text-[16px] text-[#252525] font-normal'>
+						<div className='flex items-center gap-6 text-[16px] text-[#252525] font-normal mt-[63px] mb-[49px]'>
 							Add Christmas vibes{' '}
 							<Checkbox type='toggle' defaultValue={true} />
 						</div>
@@ -1373,25 +1373,40 @@ export default function Form() {
 								Publish video unit to community
 							</div> */}
 						{/* </div> */}
-						<div className='w-full h-full flex flex-col overflow-hidden rounded-[16px]'>
+						<div className='w-full h-full flex flex-col overflow-hidden rounded-[8px]'>
 							<div
 								className='relative flex items-center justify-center'
 								id='generated-image-ctn'
 							>
-								<div className='relative min-h-[500px]'>
-									<video
-										id='video-player'
-										src='/unit.mp4'
-										autoPlay
-										loop
-										muted
-										// controls
-										style={{
-											width: '100%',
+								<div className='relative min-h-[500px] w-full'>
+									{isRunning || seconds ? (
+										<video
+											preload='auto'
+											id='video-player-demo'
+											src='/demo_video.mp4'
+											loop
+											// controls
+											style={{
+												width: '100%',
 
-											position: 'relative',
-										}}
-									/>
+												position: 'relative',
+											}}
+										/>
+									) : (
+										<video
+											id='video-player'
+											src='/unit.mp4'
+											autoPlay
+											loop
+											muted
+											// controls
+											style={{
+												width: '100%',
+
+												position: 'relative',
+											}}
+										/>
+									)}
 									{isFullScreen && (
 										<div className='toolbar-fullscreen absolute right-0 bottom-0 flex-1 flex px-[30px] items-stretch'>
 											<div
@@ -1506,18 +1521,36 @@ export default function Form() {
 															onClick={() => {
 																if (isRunning) {
 																	pause();
-																	(
-																		document.getElementById(
-																			'video-player'
-																		) as HTMLVideoElement
-																	)?.pause();
+																	setTimeout(
+																		() =>
+																			(
+																				document.getElementById(
+																					'video-player-demo'
+																				) as HTMLVideoElement
+																			)?.pause()
+																	);
 																} else {
-																	start();
-																	(
-																		document.getElementById(
-																			'video-player'
-																		) as HTMLVideoElement
-																	)?.play();
+																	console.log(
+																		'sss',
+																		seconds,
+																		minutes,
+																		hours
+																	);
+																	if (
+																		seconds ||
+																		minutes ||
+																		hours
+																	) {
+																		start();
+																		setTimeout(
+																			() =>
+																				(
+																					document.getElementById(
+																						'video-player-demo'
+																					) as HTMLVideoElement
+																				)?.play()
+																		);
+																	}
 																}
 															}}
 														>
@@ -1656,7 +1689,12 @@ export default function Form() {
 														</div>
 														<div className='flex gap-[12px] items-center justify-end mt-auto'>
 															Reminder
-															<Checkbox type='toggle' />
+															<Checkbox
+																type='toggle'
+																defaultValue={
+																	true
+																}
+															/>
 														</div>
 													</div>
 												</div>
