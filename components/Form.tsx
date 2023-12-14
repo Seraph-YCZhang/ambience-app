@@ -916,7 +916,7 @@ export default function Form() {
 																				);
 																			}}
 																			placeholder='Type in...'
-																			className='mt-[30px] px-[20px] py-[8px] rounded-[8px] border-2 border-[#D1D1D1] outline-none  text-[16px] leading-6 w-full'
+																			className='mt-[20px] px-[20px] py-[8px] rounded-[8px] border-2 border-[#D1D1D1] outline-none  text-[16px] leading-6 w-full'
 																		/>
 																	)}
 															</div>
@@ -1118,7 +1118,7 @@ export default function Form() {
 																				: '') +
 																		  '...'
 																}
-																className='mt-[30px]  px-[20px] py-[10px] rounded-[8px] border-2 border-[#D1D1D1] outline-none text-[16px] leading-6 w-full'
+																className='mt-[20px]  px-[20px] py-[10px] rounded-[8px] border-2 border-[#D1D1D1] outline-none text-[16px] leading-6 w-full'
 															/>
 														)}
 												</div>
