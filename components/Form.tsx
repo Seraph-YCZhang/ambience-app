@@ -392,8 +392,8 @@ const genInitForm = (): QuestionForm => {
 							value: 'Meditation',
 						},
 						{
-							text: `Getting a good sleep`,
-							value: 'Getting a good sleep',
+							text: `Get a good sleep`,
+							value: 'Get a good sleep',
 						},
 						{
 							text: `Have comfort food`,
