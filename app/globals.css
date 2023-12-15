@@ -149,7 +149,7 @@ body {
 }
 
 .model-step-one {
-    background:  rgba(252, 252, 252, 0.85);
+    background:  #e3e3e3;
     background-blend-mode: normal, color, luminosity;
 
 }
