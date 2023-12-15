@@ -1,19 +1,42 @@
 'use client';
 import Image from 'next/image';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function Header() {
 	const ref = useRef<any>();
+	const [forceRedner, setForceRender] = useState(false);
 	useEffect(() => {
 		if (ref.current) {
 			(ref.current as HTMLVideoElement).play();
 		}
+		const handler = () => {
+			setForceRender((prev) => !prev);
+		};
+		window.addEventListener('resize', handler);
+		return () => {
+			window.removeEventListener('resize', handler);
+		};
 	}, []);
+
 	return (
 		<div className='h-[800px] relative w-full bg-[#000]  bg-opacity-40 overflow-hidden'>
+			{/* <div >
+
+			</div> */}
 			<video
 				ref={ref}
 				src='/heropage.mp4'
+				style={{
+					left: Math.min(
+						0,
+						-(
+							1728 -
+							(typeof window !== 'undefined'
+								? window.innerWidth
+								: 1728)
+						) / 2
+					),
+				}}
 				className='absolute left-0 right-0 bottom-0 w-full z-0 min-w-fit'
 				autoPlay={true}
 				loop={true}
