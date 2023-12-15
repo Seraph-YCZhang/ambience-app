@@ -80,7 +80,7 @@ export default function Header() {
 						</div>
 						<div className='font-light leading-6  text-[20px] text-[#444]'>
 							Complete the 14-question test, which takes about 4
-							minutes, to let us get to know you
+							minutes, to let us get to know you.
 						</div>
 					</div>
 					<div className='flex items-center px-1'>
