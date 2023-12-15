@@ -687,7 +687,7 @@ export default function Form() {
 				<div className='flex flex-col gap-[30px] w-full'>
 					<div
 						className={classNames('w-full flex gap-[50px]', {
-							'justify-around': !question.sortable,
+							'justify-center': !question.sortable,
 						})}
 					>
 						{_options &&
