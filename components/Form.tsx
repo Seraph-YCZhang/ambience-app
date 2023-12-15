@@ -1739,11 +1739,17 @@ export default function Form() {
 										<div
 											className='border-solid border-[#C8C8C8] border-r cursor-pointer  h-full flex justify-center items-center  px-[16px] flex-1'
 											onClick={() => {
-												(
-													document.getElementById(
-														'video-player'
-													) as HTMLVideoElement as any
-												)?.webkitShowPlaybackTargetPicker?.();
+												isRunning || seconds
+														? (
+																document.getElementById(
+																	'video-player-demo'
+																) as HTMLVideoElement as any
+														  )?.webkitShowPlaybackTargetPicker?.()
+														: (
+																document.getElementById(
+																	'video-player'
+																) as HTMLVideoElement as any
+														  )?.webkitShowPlaybackTargetPicker?.();
 											}}
 										>
 											<AirdropIcon />
