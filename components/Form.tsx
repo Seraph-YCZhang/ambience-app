@@ -140,7 +140,7 @@ const genInitForm = (): QuestionForm => {
 				},
 				{
 					question: `How do you agree with this statement: <br />
-                        I enjoy embracing changes and try out new things`,
+                        <i>I enjoy embracing changes and try out new things</i>`,
 					values: [],
 					key: 'embracing_changes',
 					options: [
@@ -686,7 +686,7 @@ export default function Form() {
 				</div>
 				<div className='flex flex-col gap-[30px] w-full'>
 					<div
-						className={classNames('w-full flex', {
+						className={classNames('w-full flex gap-[50px]', {
 							'justify-around': !question.sortable,
 						})}
 					>
@@ -786,7 +786,7 @@ export default function Form() {
 																	<div className='bg-[#FFF] text-[#252525] w-[62px] h-[62px] rounded-[8px] flex items-center justify-center'>
 																		{op.num}
 																	</div>
-																	<div className='flex bg-[#FFF] py-[16px] px-[50px] rounded-[8px] items-center flex-1'>
+																	<div className='flex bg-[#FFF] py-[16px] px-[50px] rounded-[8px] items-center flex-1  text-[20px] leading-[30px]'>
 																		<div>
 																			{
 																				op.text
@@ -794,28 +794,28 @@ export default function Form() {
 																		</div>
 																		<div className='ml-auto'>
 																			<svg
-																				width='24'
-																				height='24'
-																				viewBox='0 0 24 24'
+																				width='22'
+																				height='18'
+																				viewBox='0 0 22 18'
 																				fill='none'
 																				xmlns='http://www.w3.org/2000/svg'
 																			>
 																				<path
-																					d='M2 22H22'
+																					d='M1 1H21'
 																					stroke='#444444'
-																					stroke-width='4'
+																					stroke-width='2'
 																					stroke-linecap='round'
 																				/>
 																				<path
-																					d='M2 12H22'
+																					d='M1 9H21'
 																					stroke='#444444'
-																					stroke-width='4'
+																					stroke-width='2'
 																					stroke-linecap='round'
 																				/>
 																				<path
-																					d='M2 2H22'
+																					d='M1 17H21'
 																					stroke='#444444'
-																					stroke-width='4'
+																					stroke-width='2'
 																					stroke-linecap='round'
 																				/>
 																			</svg>
@@ -1279,7 +1279,7 @@ export default function Form() {
 				}}
 			>
 				{modalStep === 1 && (
-					<div className='w-full h-full flex flex-col justify-center items-center pt-[60px] pb-[65px] model-step-one'>
+					<div className='w-full h-full flex flex-col justify-center items-center pt-[60px] pb-[65px] model-step-one  rounded-lg'>
 						<div
 							className='absolute z-[1] top-[-26px] right-[-26px] cursor-pointer bg-[#fff] rounded-full w-[52px] h-[52px] flex items-center justify-center'
 							onClick={() => setShowModal(false)}
@@ -1305,7 +1305,7 @@ export default function Form() {
 								/>
 							</svg>
 						</div>
-						<div className='text-[20px] text-[#252525] font-semibold max-w-[575px] mb-[24px]'>
+						<div className='text-[20px] text-[#252525] font-semibold max-w-[575px] mb-[24px] text-center'>
 							Before we finalize your ambient video unit, do you
 							want to add some Christmas atmosphere to your
 							ambience?
@@ -1338,7 +1338,7 @@ export default function Form() {
 					</div>
 				)}
 				{modalStep === 2 && (
-					<div className='w-full h-full flex flex-col'>
+					<div className='w-full h-full flex flex-col rounded-lg'>
 						{/* <div className='relative p-[30px] shrink-0'> */}
 						<div
 							className='absolute z-[1] top-[-26px] right-[-26px] cursor-pointer bg-[#fff] rounded-full w-[52px] h-[52px] flex items-center justify-center'
@@ -1609,7 +1609,7 @@ export default function Form() {
 													<div className='flex flex-col gap-2 pl-[35px] flex-1'>
 														<div className='flex gap-2'>
 															<div
-																className='flex-1 rounded-[8px] hover:bg-[#fff] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer'
+																className='flex-1 rounded-[8px] hover:bg-[#fff] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer text-center'
 																onClick={() => {
 																	restart(
 																		(() => {
@@ -1628,7 +1628,7 @@ export default function Form() {
 																10 min
 															</div>
 															<div
-																className='flex-1 rounded-[8px] hover:bg-[#fff] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer'
+																className='flex-1 rounded-[8px] hover:bg-[#fff] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer text-center'
 																onClick={() => {
 																	restart(
 																		(() => {
@@ -1649,7 +1649,7 @@ export default function Form() {
 														</div>
 														<div className='flex gap-2'>
 															<div
-																className='flex-1 rounded-[8px] hover:bg-[#fff] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer'
+																className='flex-1 rounded-[8px] hover:bg-[#fff] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer text-center'
 																onClick={() => {
 																	restart(
 																		(() => {
@@ -1668,7 +1668,7 @@ export default function Form() {
 																1 hour
 															</div>
 															<div
-																className='flex-1 rounded-[8px] hover:bg-[#fff] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer'
+																className='flex-1 rounded-[8px] hover:bg-[#fff] border-[#444] border-[2px] py-[12px] px-[20px] cursor-pointer text-center'
 																onClick={() => {
 																	restart(
 																		(() => {
