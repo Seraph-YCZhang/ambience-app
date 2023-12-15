@@ -503,10 +503,6 @@ const genInitForm = (): QuestionForm => {
 							value: 'Sandalwood',
 						},
 						{
-							text: `Citrus`,
-							value: 'Citrus',
-						},
-						{
 							text: `Fresh Rain`,
 							value: 'Fresh Rain',
 						},
@@ -701,224 +697,245 @@ export default function Form() {
 											}
 											key={index}
 										>
-											<div className='w-full flex flex-col gap-[10px]'>
-												{ops.map((op, idx) => {
-													const onChange = (
-														v: boolean
-													) => {
-														setQuestionForm(
-															(prev) => {
-																return {
-																	...prev,
-																	[curSection]:
-																		{
-																			...prev[
-																				curSection
-																			],
-
-																			questions:
-																				prev[
-																					curSection
-																				].questions.map(
-																					(
-																						q
-																					) => {
-																						if (
-																							q.key !==
-																							question.key
-																						) {
-																							return q;
-																						} else {
-																							if (
-																								curSection ===
-																									1 &&
-																								questionNum ===
-																									0
-																							) {
-																								if (
-																									v
-																								) {
-																									return {
-																										...q,
-																										values: [
-																											op.value,
-																										],
-																										extra: {
-																											selectedOption:
-																												v,
-																										},
-																									};
-																								} else {
-																									return {
-																										...q,
-																										values: [],
-																										extra: {
-																											selectedOption:
-																												undefined,
-																										},
-																									};
-																								}
-																							}
-																							return {
-																								...q,
-																								values: [
-																									op.value,
-																								],
-																							};
-																						}
-																					}
-																				),
-																		},
-																};
-															}
-														);
-													};
-													return (
-														<SortableItem
-															id={op.value}
-															key={op.value}
-														>
+											<div className='w-full flex gap-[10px] justify-center'>
+												<div className='flex flex-col  gap-[10px]'>
+													{ops.map((op, idx) => {
+														return (
 															<div
 																key={op.value}
 																className='text-[#777] text-[20px] font-normal leading-10  rounded-[8px] cursor-pointer w-full'
 															>
 																<div className='flex items-center gap-[10px] w-full'>
 																	<div className='bg-[#FFF] text-[#252525] w-[62px] h-[62px] rounded-[8px] flex items-center justify-center'>
-																		{op.num}
-																	</div>
-																	<div className='flex bg-[#FFF] py-[16px] px-[50px] rounded-[8px] items-center flex-1  text-[20px] leading-[30px]'>
-																		<div>
-																			{
-																				op.text
-																			}
-																		</div>
-																		<div className='ml-auto'>
-																			<svg
-																				width='22'
-																				height='18'
-																				viewBox='0 0 22 18'
-																				fill='none'
-																				xmlns='http://www.w3.org/2000/svg'
-																			>
-																				<path
-																					d='M1 1H21'
-																					stroke='#444444'
-																					stroke-width='2'
-																					stroke-linecap='round'
-																				/>
-																				<path
-																					d='M1 9H21'
-																					stroke='#444444'
-																					stroke-width='2'
-																					stroke-linecap='round'
-																				/>
-																				<path
-																					d='M1 17H21'
-																					stroke='#444444'
-																					stroke-width='2'
-																					stroke-linecap='round'
-																				/>
-																			</svg>
-																		</div>
+																		{idx +
+																			1}
 																	</div>
 																</div>
-																{op.value ===
-																	'Other' &&
-																	!(
-																		questionNum ===
-																			0 &&
-																		curSection ===
-																			1
-																	) &&
-																	(
-																		questionForm[
-																			curSection
-																		]
-																			.questions[
-																			questionNum
-																		]
-																			.values as string[]
-																	).includes(
+															</div>
+														);
+													})}
+												</div>
+												<div className='flex flex-col  gap-[10px]'>
+													{ops.map((op, idx) => {
+														const onChange = (
+															v: boolean
+														) => {
+															setQuestionForm(
+																(prev) => {
+																	return {
+																		...prev,
+																		[curSection]:
+																			{
+																				...prev[
+																					curSection
+																				],
+
+																				questions:
+																					prev[
+																						curSection
+																					].questions.map(
+																						(
+																							q
+																						) => {
+																							if (
+																								q.key !==
+																								question.key
+																							) {
+																								return q;
+																							} else {
+																								if (
+																									curSection ===
+																										1 &&
+																									questionNum ===
+																										0
+																								) {
+																									if (
+																										v
+																									) {
+																										return {
+																											...q,
+																											values: [
+																												op.value,
+																											],
+																											extra: {
+																												selectedOption:
+																													v,
+																											},
+																										};
+																									} else {
+																										return {
+																											...q,
+																											values: [],
+																											extra: {
+																												selectedOption:
+																													undefined,
+																											},
+																										};
+																									}
+																								}
+																								return {
+																									...q,
+																									values: [
+																										op.value,
+																									],
+																								};
+																							}
+																						}
+																					),
+																			},
+																	};
+																}
+															);
+														};
+														return (
+															<SortableItem
+																id={op.value}
+																key={op.value}
+															>
+																<div
+																	key={
 																		op.value
-																	) && (
-																		<input
-																			value={
-																				questionForm[
-																					curSection
-																				]
-																					.questions[
-																					questionNum
-																				]
-																					.extra
-																					?.other
-																			}
-																			onChange={(
-																				e
-																			) => {
-																				questionForm[
-																					curSection
-																				].questions[
-																					questionNum
-																				].extra =
+																	}
+																	className='text-[#777] text-[20px] font-normal leading-10  rounded-[8px] cursor-pointer w-full'
+																>
+																	<div className='flex items-center gap-[10px]'>
+																		{/* <div className='bg-[#FFF] text-[#252525] w-[62px] h-[62px] rounded-[8px] flex items-center justify-center'>
+																		{op.num}
+																	</div> */}
+																		<div className='flex bg-[#FFF] py-[16px] px-[50px] rounded-[8px] items-center text-[20px] leading-[30px] gap-[70px] flex-1'>
+																			<div>
+																				{
+																					op.text
+																				}
+																			</div>
+																			<div className='ml-auto'>
+																				<svg
+																					width='22'
+																					height='18'
+																					viewBox='0 0 22 18'
+																					fill='none'
+																					xmlns='http://www.w3.org/2000/svg'
+																				>
+																					<path
+																						d='M1 1H21'
+																						stroke='#444444'
+																						stroke-width='2'
+																						stroke-linecap='round'
+																					/>
+																					<path
+																						d='M1 9H21'
+																						stroke='#444444'
+																						stroke-width='2'
+																						stroke-linecap='round'
+																					/>
+																					<path
+																						d='M1 17H21'
+																						stroke='#444444'
+																						stroke-width='2'
+																						stroke-linecap='round'
+																					/>
+																				</svg>
+																			</div>
+																		</div>
+																	</div>
+																	{op.value ===
+																		'Other' &&
+																		!(
+																			questionNum ===
+																				0 &&
+																			curSection ===
+																				1
+																		) &&
+																		(
+																			questionForm[
+																				curSection
+																			]
+																				.questions[
+																				questionNum
+																			]
+																				.values as string[]
+																		).includes(
+																			op.value
+																		) && (
+																			<input
+																				value={
 																					questionForm[
 																						curSection
 																					]
 																						.questions[
 																						questionNum
 																					]
-																						.extra ??
-																					{};
-																				console.log(
-																					'hh',
+																						.extra
+																						?.other
+																				}
+																				onChange={(
 																					e
-																						.target
-																						.value
-																				);
-																				// questionForm[
-																				// 	curSection
-																				// ].questions[
-																				// 	questionNum
-																				// ].extra.other =
-																				// 	e.target.value;
-																				setQuestionForm(
-																					(
-																						prev
-																					) => ({
-																						...prev,
-																						[curSection]:
-																							{
-																								...prev[
-																									curSection
-																								],
-																								questions:
-																									prev[
+																				) => {
+																					questionForm[
+																						curSection
+																					].questions[
+																						questionNum
+																					].extra =
+																						questionForm[
+																							curSection
+																						]
+																							.questions[
+																							questionNum
+																						]
+																							.extra ??
+																						{};
+																					console.log(
+																						'hh',
+																						e
+																							.target
+																							.value
+																					);
+																					// questionForm[
+																					// 	curSection
+																					// ].questions[
+																					// 	questionNum
+																					// ].extra.other =
+																					// 	e.target.value;
+																					setQuestionForm(
+																						(
+																							prev
+																						) => ({
+																							...prev,
+																							[curSection]:
+																								{
+																									...prev[
 																										curSection
-																									].questions.map(
-																										(
-																											q
-																										) => ({
-																											...q,
-																											extra: {
-																												...(q.extra ||
-																													{}),
-																												other: e
-																													.target
-																													.value,
-																											},
-																										})
-																									),
-																							},
-																					})
-																				);
-																			}}
-																			placeholder='Type in...'
-																			className='mt-[20px] px-[20px] py-[8px] rounded-[8px] border-2 border-[#D1D1D1] outline-none  text-[16px] leading-6 w-full'
-																		/>
-																	)}
-															</div>
-														</SortableItem>
-													);
-												})}
+																									],
+																									questions:
+																										prev[
+																											curSection
+																										].questions.map(
+																											(
+																												q
+																											) => ({
+																												...q,
+																												extra: {
+																													...(q.extra ||
+																														{}),
+																													other: e
+																														.target
+																														.value,
+																												},
+																											})
+																										),
+																								},
+																						})
+																					);
+																				}}
+																				placeholder='Type in...'
+																				className='mt-[20px] px-[20px] py-[8px] rounded-[8px] border-2 border-[#D1D1D1] outline-none  text-[16px] leading-6 w-full'
+																			/>
+																		)}
+																</div>
+															</SortableItem>
+														);
+													})}
+												</div>
 											</div>
 										</SortableContext>
 									);
@@ -1740,16 +1757,16 @@ export default function Form() {
 											className='border-solid border-[#C8C8C8] border-r cursor-pointer  h-full flex justify-center items-center  px-[16px] flex-1'
 											onClick={() => {
 												isRunning || seconds
-														? (
-																document.getElementById(
-																	'video-player-demo'
-																) as HTMLVideoElement as any
-														  )?.webkitShowPlaybackTargetPicker?.()
-														: (
-																document.getElementById(
-																	'video-player'
-																) as HTMLVideoElement as any
-														  )?.webkitShowPlaybackTargetPicker?.();
+													? (
+															document.getElementById(
+																'video-player-demo'
+															) as HTMLVideoElement as any
+													  )?.webkitShowPlaybackTargetPicker?.()
+													: (
+															document.getElementById(
+																'video-player'
+															) as HTMLVideoElement as any
+													  )?.webkitShowPlaybackTargetPicker?.();
 											}}
 										>
 											<AirdropIcon />
