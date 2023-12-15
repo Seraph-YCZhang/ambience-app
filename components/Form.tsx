@@ -110,7 +110,7 @@ const genInitForm = (): QuestionForm => {
 							value: 'no_people',
 						},
 						{
-							text: `I like to seek social support when I'm bad mood`,
+							text: `I like to seek social support when I'm in a bad mood`,
 							value: 'have_people',
 						},
 					],
