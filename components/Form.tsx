@@ -106,11 +106,11 @@ const genInitForm = (): QuestionForm => {
 					key: 'people',
 					options: [
 						{
-							text: 'I seeking quiet and solitude when feeling bad',
+							text: 'I seek quiet and solitude when feeling bad',
 							value: 'no_people',
 						},
 						{
-							text: `I like to seeking social support when I'm bad mood`,
+							text: `I like to seek social support when I'm bad mood`,
 							value: 'have_people',
 						},
 					],
