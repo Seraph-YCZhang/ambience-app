@@ -1310,11 +1310,11 @@ export default function Form() {
 							want to add some Christmas atmosphere to your
 							ambience?
 						</div>
-						<div className='w-[898px] min-h-[300px]'>
+						<div className='w-[898px] min-h-[360px]'>
 							<Image
 								src='/santa.gif'
 								width={898}
-								height={300}
+								height={360}
 								style={{ width: '100%' }}
 								alt='form_img'
 							/>
@@ -1378,7 +1378,7 @@ export default function Form() {
 								className='relative flex items-center justify-center'
 								id='generated-image-ctn'
 							>
-								<div className='relative min-h-[500px] w-full'>
+								<div className='relative min-h-[510px] w-full'>
 									{isRunning || seconds ? (
 										<video
 											preload='auto'
@@ -1388,7 +1388,7 @@ export default function Form() {
 											// controls
 											style={{
 												width: '100%',
-
+												height: '100%',
 												position: 'relative',
 											}}
 										/>
@@ -1402,7 +1402,7 @@ export default function Form() {
 											// controls
 											style={{
 												width: '100%',
-
+												height: '100%',
 												position: 'relative',
 											}}
 										/>
