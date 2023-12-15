@@ -140,7 +140,7 @@ const genInitForm = (): QuestionForm => {
 				},
 				{
 					question: `How do you agree with this statement: <br />
-                        <i>I enjoy embracing changes and try out new things</i>`,
+                        <i>"I enjoy embracing changes and try out new things"</i>`,
 					values: [],
 					key: 'embracing_changes',
 					options: [
