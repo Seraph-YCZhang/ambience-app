@@ -140,7 +140,7 @@ const genInitForm = (): QuestionForm => {
 				},
 				{
 					question: `How do you agree with this statement: <br />
-                        <i>"I enjoy embracing changes and try out new things"</i>`,
+                        <i>"I enjoy embracing changes and trying out new things"</i>`,
 					values: [],
 					key: 'embracing_changes',
 					options: [
@@ -272,7 +272,7 @@ const genInitForm = (): QuestionForm => {
 					],
 				},
 				{
-					question: `Does a natural environment or a human-made environment make you feel more calm at this time?`,
+					question: `Does a natural environment or a human-made environment make you feel calmer at this time?`,
 					values: [],
 					key: 'favorite_movies',
 					options: [
@@ -287,7 +287,7 @@ const genInitForm = (): QuestionForm => {
 					],
 				},
 				{
-					question: `At this time, I feel more calm staying indoor as opposed to outdoor`,
+					question: `At this time, I feel calmer staying indoors as opposed to outdoors`,
 					values: [],
 					key: 'indoor_outdoor',
 					options: [
@@ -425,7 +425,7 @@ const genInitForm = (): QuestionForm => {
 					],
 				},
 				{
-					question: `Is there a specific type of weather can put you in a calming mood right now?`,
+					question: `Is there a specific type of weather that can put you in a calming mood right now?`,
 					values: [],
 					key: 'weather',
 
