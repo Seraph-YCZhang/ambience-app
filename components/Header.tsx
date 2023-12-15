@@ -10,7 +10,7 @@ export default function Header() {
 		}
 	}, []);
 	return (
-		<div className='h-[800px] relative w-full bg-[#000]  bg-opacity-40 '>
+		<div className='h-[800px] relative w-full bg-[#000]  bg-opacity-40 overflow-hidden'>
 			<video
 				ref={ref}
 				src='/heropage.mp4'
