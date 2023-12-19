@@ -50,7 +50,7 @@ const Section = ({ curSection, totalSection, text }: SectionProps) => {
 
 const sectionTextMap: Record<ISection, string> = {
 	1: 'Let us get to know you',
-	2: 'Let us get to know you',
+	2: 'Tailor the ambience that fits you best',
 };
 
 type ISection = 1 | 2;
@@ -246,7 +246,7 @@ const genInitForm = (): QuestionForm => {
 			],
 		},
 		2: {
-			title: 'tailor the ambience that fits you best',
+			title: 'Tailor the ambience that fits you best',
 			questions: [
 				{
 					question: `What's your most desired type of environment at this time?`,
